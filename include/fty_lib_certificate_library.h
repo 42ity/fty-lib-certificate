@@ -98,7 +98,7 @@ typedef struct _libcert_x509_certificate_t libcert_x509_certificate_t;
 
 //  Public classes, each with its own header file
 #ifdef FTY_LIB_CERTIFICATE_BUILD_DRAFT_API
-#include "libcert_x509_certificate.h"
+#include "libcert_X509_certificate.h"
 #endif // FTY_LIB_CERTIFICATE_BUILD_DRAFT_API
 
 #ifdef FTY_LIB_CERTIFICATE_BUILD_DRAFT_API

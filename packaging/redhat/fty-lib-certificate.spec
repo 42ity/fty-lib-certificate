@@ -38,6 +38,7 @@ BuildRequires:  autoconf
 BuildRequires:  libtool
 BuildRequires:  pkgconfig
 BuildRequires:  xmlto
+BuildRequires:  gcc-c++
 BuildRequires:  openssl-devel
 BuildRequires:  cxxtools-devel
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build

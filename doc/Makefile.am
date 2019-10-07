@@ -65,8 +65,8 @@ GENERATED_DOCS =
 	@true
 
 GENERATED_DOCS += libcert_x509_certificate.txt libcert_x509_certificate.doc
-libcert_x509_certificate.txt: $(top_srcdir)/src/libcert_x509_certificate.c
-	"$(srcdir)/mkman" "libcert_x509_certificate" "$(builddir)/libcert_x509_certificate.txt" "$(srcdir)/.."
+libcert_x509_certificate.txt: $(top_srcdir)/src/libcert_X509_certificate.cc
+	"$(srcdir)/mkman" "libcert_X509_certificate" "$(builddir)/libcert_x509_certificate.txt" "$(srcdir)/.."
 
 ### Note: for mains, we keep the source name rather than flattened name:c
 ### so that the manpages for binary programs match their name, at expense

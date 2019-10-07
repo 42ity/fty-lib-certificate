@@ -55,6 +55,8 @@ FTY_LIB_CERTIFICATE_ORIG_CFLAGS="${CFLAGS:-none}"
 AC_PROG_CC
 AC_PROG_CC_C99
 AM_PROG_CC_C_O
+AC_PROG_CXX
+AC_PROG_CXX_C_O
 AC_LIBTOOL_WIN32_DLL
 AC_PROG_LIBTOOL
 AC_PROG_SED
@@ -556,11 +558,11 @@ AS_IF([test "x$enable_Werror" = "xyes" || test "x$enable_Werror" = "xauto"],
         ])])])
      AS_IF([test -n "$CPP"],[AS_IF([$CPP --version 2>&1 | grep 'Free Software Foundation' > /dev/null && test "x$GCC" = "xyes"],
         [AC_MSG_NOTICE([Enabling pedantic errors for GNU CPP preprocessor])
-         CPPFLAGS="$CPPFLAGS -pedantic -Werror -Wall -Wc++-compat"
+         CPPFLAGS="$CPPFLAGS -pedantic -Werror -Wall"
         ],
         [AS_IF([$CXX --version 2>&1 | grep 'clang version' > /dev/null],
             [AC_MSG_NOTICE([Enabling pedantic errors for clang CPP preprocessor])
-             CPPFLAGS="$CPPFLAGS -pedantic -Werror -Wall -Wc++-compat"
+             CPPFLAGS="$CPPFLAGS -pedantic -Werror -Wall"
             ],
             [AC_MSG_NOTICE([Not enabling pedantic errors: preprocessor not supported by this recipe (not GNU or clang CPP)])
              AS_IF([test "x$enable_Werror" = "xyes"], [AC_MSG_ERROR([--enable-Werror=yes was requested and can not be satisfied for CPP: $CPP])])

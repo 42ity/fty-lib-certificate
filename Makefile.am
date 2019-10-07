@@ -5,10 +5,13 @@
 
 ACLOCAL_AMFLAGS = -I config
 
+AM_CXXFLAGS = \
+    -std=c++11
 
 AM_CPPFLAGS = \
     ${openssl_CFLAGS} \
     ${cxxtools_CFLAGS} \
+    -D__STDC_FORMAT_MACROS \
     -I$(srcdir)/include
 
 project_libs = ${openssl_LIBS} ${cxxtools_LIBS}

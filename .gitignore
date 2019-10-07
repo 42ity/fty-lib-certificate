@@ -1,6 +1,6 @@
 # This is a skeleton created by zproject.
 # You can add hand-written code here.
-### Note: CMake files has been added in gitignore; take care upon regens
+### Note: General ignorance of CMake files has been added in gitignore; take care upon regens
 
 save.xml
 # Object files
@@ -23,18 +23,17 @@ save.xml
 *.lo
 
 # Executables
-src/fty-security-wallet_selftest
-src/fty-security-wallet
-src/fty_security_wallet_selftest
+src/fty-lib-certificate_selftest
+src/fty_lib_certificate_selftest
 *.exe
 *.out
 *.app
 core
 
 # Distcheck workspace and archives
-fty-security-wallet-*/
-fty-security-wallet-*.tar.gz
-fty-security-wallet-*.zip
+fty-lib-certificate-*/
+fty-lib-certificate-*.tar.gz
+fty-lib-certificate-*.zip
 
 # Man pages
 doc/*.1

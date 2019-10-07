@@ -36,7 +36,10 @@
         <option name = "use_checkout_explicit" value = "1" />
     </target>
     
-    <!-- <classfilename use-cxx-gcc-4-9 = "true"/> -->
+    <classfilename use-cxx = "true" source-extension = "cc" header-extension = "h"
+        pretty-print = "no" keep-tree = "true" />
+
+    <!--<classfilename use-cxx-gcc-4-9 = "true"/>-->
 
     <include filename = "license.xml" />
     <version major = "1" minor = "0" patch = "0" />
