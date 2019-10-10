@@ -14,27 +14,35 @@
 #ifndef LIBCERT_X509_CERTIFICATE_H_INCLUDED
 #define LIBCERT_X509_CERTIFICATE_H_INCLUDED
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#include <string>
+#include <openssl/x509.h>
 
-//  @interface
-//  Create a new libcert_x509_certificate
-FTY_LIB_CERTIFICATE_EXPORT libcert_x509_certificate_t *
-    libcert_x509_certificate_new (void);
+namespace fty
+{
+    class CertificateX509
+    {   
+    public:
+        explicit CertificateX509(const std::string & certPem);
+        CertificateX509(const CertificateX509 & x509);
+        ~CertificateX509();
+        
+        std::string getSubject() const;
+        std::string getDetails() const;
+        std::string getPem() const;
+        
+    private:
+        X509 * m_x509 = NULL;
 
-//  Destroy the libcert_x509_certificate
-FTY_LIB_CERTIFICATE_EXPORT void
-    libcert_x509_certificate_destroy (libcert_x509_certificate_t **self_p);
+        void importPem(const std::string & certPem);
+    };
+
+    inline bool operator==(const CertificateX509& lhs, const CertificateX509& rhs){ return (lhs.getPem() == rhs.getPem()); }
+    inline bool operator!=(const CertificateX509& lhs, const CertificateX509& rhs){ return !(lhs == rhs); }
+} // namespace fty
 
 //  Self test of this class
-FTY_LIB_CERTIFICATE_EXPORT void
-    libcert_x509_certificate_test (bool verbose);
+void libcert_x509_certificate_test (bool verbose);
 
-//  @end
 
-#ifdef __cplusplus
-}
-#endif
 
 #endif

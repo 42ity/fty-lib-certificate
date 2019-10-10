@@ -20,41 +20,94 @@
 
 #include "fty_lib_certificate_classes.h"
 
-//  Structure of our class
+#include <exception>
+#include <sstream>
+#include <openssl/ssl.h>
+#include <openssl/pem.h>
 
-struct _libcert_x509_certificate_t {
-    int filler;     //  Declare class properties here
-};
-
-
-//  --------------------------------------------------------------------------
-//  Create a new libcert_x509_certificate
-
-libcert_x509_certificate_t *
-libcert_x509_certificate_new (void)
+namespace cert
 {
-    libcert_x509_certificate_t *self = (libcert_x509_certificate_t *) zmalloc (sizeof (libcert_x509_certificate_t));
-    assert (self);
-    //  Initialize class properties here
-    return self;
-}
-
-
-//  --------------------------------------------------------------------------
-//  Destroy the libcert_x509_certificate
-
-void
-libcert_x509_certificate_destroy (libcert_x509_certificate_t **self_p)
-{
-    assert (self_p);
-    if (*self_p) {
-        libcert_x509_certificate_t *self = *self_p;
-        //  Free class properties here
-        //  Free object itself
-        free (self);
-        *self_p = NULL;
+    CertificateX509::CertificateX509(const std::string & certPem)
+    {
+        importPem(certPem);
     }
-}
+
+    CertificateX509::CertificateX509(const CertificateX509 & x509)
+    {
+        importPem(x509.getPem());
+    }
+
+    CertificateX509::~CertificateX509()
+    {
+        // Cleanup
+	    X509_free(m_x509);
+    }
+
+    std::string CertificateX509::getSubject() const
+    {
+        char * str = X509_NAME_oneline(X509_get_subject_name(m_x509), NULL, 0);
+
+        std::string returnValue(str);
+
+        free(str);
+
+        return returnValue;
+    }
+
+    std::string CertificateX509::getDetails() const
+    {
+        BIO * bioOut = BIO_new(BIO_s_mem());
+        std::string details;
+
+        X509_print(bioOut, m_x509);
+
+        BUF_MEM *bioBuffer;
+        BIO_get_mem_ptr(bioOut, &bioBuffer);
+        details = std::string(bioBuffer->data, bioBuffer->length);
+
+        BIO_free(bioOut);
+
+        return details;
+    }
+
+    std::string CertificateX509::getPem() const
+    {
+        BIO * bioOut = BIO_new(BIO_s_mem());
+        std::string pem;
+        
+        PEM_write_bio_X509(bioOut, m_x509);
+
+        BUF_MEM *bioBuffer;
+        BIO_get_mem_ptr(bioOut, &bioBuffer);
+        pem = std::string(bioBuffer->data, bioBuffer->length);
+
+        BIO_free(bioOut);
+
+        return pem;
+    }
+
+    void CertificateX509::importPem(const std::string & certPem)
+    {
+        X509_free(m_x509);
+
+        BIO * bio = BIO_new_mem_buf((void*)certPem.c_str(), certPem.length());
+
+        if(bio == NULL)
+        {
+            throw std::runtime_error("Impossible to read the certificate PEM");
+        }
+
+        m_x509 = PEM_read_bio_X509(bio, NULL, NULL, NULL);
+        BIO_free(bio);
+
+        if ( m_x509 == NULL)
+        {
+            throw std::runtime_error("Impossible to read the certificate PEM");
+        }
+    }
+
+} // namepsace cert
+
 
 //  --------------------------------------------------------------------------
 //  Self test of this class
@@ -79,9 +132,6 @@ libcert_x509_certificate_test (bool verbose)
 
     //  @selftest
     //  Simple create/destroy test
-    libcert_x509_certificate_t *self = libcert_x509_certificate_new ();
-    assert (self);
-    libcert_x509_certificate_destroy (&self);
     //  @end
     printf ("OK\n");
 }
