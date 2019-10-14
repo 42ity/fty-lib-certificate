@@ -1,5 +1,5 @@
 /*  =========================================================================
-    libcert_x509_certificate - X509 certificate
+    libcert_public_key - Public Key
 
     Copyright (c) the Contributors as noted in the AUTHORS file.
     This file is part of CZMQ, the high-level C binding for 0MQ:
@@ -13,48 +13,49 @@
 
 /*
 @header
-    libcert_x509_certificate - X509 certificate
+    libcert_public_key - Public Key
 @discuss
 @end
 */
 
 #include "fty_lib_certificate_classes.h"
 
-//  Structure of our class
+#include <stdexcept>
+#include <sstream>
+#include <openssl/ssl.h>
+#include <openssl/pem.h>
 
-struct _libcert_x509_certificate_t {
-    int filler;     //  Declare class properties here
-};
-
-
-//  --------------------------------------------------------------------------
-//  Create a new libcert_x509_certificate
-
-libcert_x509_certificate_t *
-libcert_x509_certificate_new (void)
+namespace fty
 {
-    libcert_x509_certificate_t *self = (libcert_x509_certificate_t *) zmalloc (sizeof (libcert_x509_certificate_t));
-    assert (self);
-    //  Initialize class properties here
-    return self;
-}
-
-
-//  --------------------------------------------------------------------------
-//  Destroy the libcert_x509_certificate
-
-void
-libcert_x509_certificate_destroy (libcert_x509_certificate_t **self_p)
-{
-    assert (self_p);
-    if (*self_p) {
-        libcert_x509_certificate_t *self = *self_p;
-        //  Free class properties here
-        //  Free object itself
-        free (self);
-        *self_p = NULL;
+    PublicKey::PublicKey(EVP_PKEY * key)
+    {
+        if(key == NULL) throw std::runtime_error("Impossible to create the public key");
+        m_evpPkey = key;
     }
-}
+
+    PublicKey::~PublicKey()
+    {
+        EVP_PKEY_free(m_evpPkey);
+    }
+        
+    std::string PublicKey::getPem() const
+    {
+        BIO * bioOut = BIO_new(BIO_s_mem());
+        std::string pem;
+        
+        PEM_write_bio_PUBKEY(bioOut, m_evpPkey);
+
+        BUF_MEM *bioBuffer;
+        BIO_get_mem_ptr(bioOut, &bioBuffer);
+        pem = std::string(bioBuffer->data, bioBuffer->length);
+
+        BIO_free(bioOut);
+
+        return pem;
+    }
+
+} //namespace fty
+
 
 //  --------------------------------------------------------------------------
 //  Self test of this class
@@ -73,15 +74,13 @@ libcert_x509_certificate_destroy (libcert_x509_certificate_t **self_p)
 #define SELFTEST_DIR_RW "src/selftest-rw"
 
 void
-libcert_x509_certificate_test (bool verbose)
+libcert_public_key_test (bool verbose)
 {
-    printf (" * libcert_x509_certificate: ");
+    printf (" * libcert_public_key: ");
 
     //  @selftest
     //  Simple create/destroy test
-    libcert_x509_certificate_t *self = libcert_x509_certificate_new ();
-    assert (self);
-    libcert_x509_certificate_destroy (&self);
+
     //  @end
     printf ("OK\n");
 }

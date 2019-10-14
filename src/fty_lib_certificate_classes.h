@@ -22,7 +22,7 @@
 #include "platform.h"
 
 //  External API
-#include "../include/fty_lib_certificate.h"
+#include "../include/fty-lib-certificate.h"
 
 //  Opaque class structures to allow forward references
 

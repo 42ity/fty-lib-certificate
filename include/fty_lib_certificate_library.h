@@ -91,14 +91,23 @@
 //  These classes are stable or legacy and built in all releases
 //  Draft classes are by default not built in stable releases
 #ifdef FTY_LIB_CERTIFICATE_BUILD_DRAFT_API
-typedef struct _libcert_x509_certificate_t libcert_x509_certificate_t;
-#define LIBCERT_X509_CERTIFICATE_T_DEFINED
+typedef struct _libcert_pem_exportable_t libcert_pem_exportable_t;
+#define LIBCERT_PEM_EXPORTABLE_T_DEFINED
+typedef struct _libcert_certificate_x509_t libcert_certificate_x509_t;
+#define LIBCERT_CERTIFICATE_X509_T_DEFINED
+typedef struct _libcert_public_key_t libcert_public_key_t;
+#define LIBCERT_PUBLIC_KEY_T_DEFINED
+typedef struct _libcert_keys_t libcert_keys_t;
+#define LIBCERT_KEYS_T_DEFINED
 #endif // FTY_LIB_CERTIFICATE_BUILD_DRAFT_API
 
 
 //  Public classes, each with its own header file
 #ifdef FTY_LIB_CERTIFICATE_BUILD_DRAFT_API
-#include "libcert_x509_certificate.h"
+#include "libcert_pem_exportable.h"
+#include "libcert_certificate_X509.h"
+#include "libcert_public_key.h"
+#include "libcert_keys.h"
 #endif // FTY_LIB_CERTIFICATE_BUILD_DRAFT_API
 
 #ifdef FTY_LIB_CERTIFICATE_BUILD_DRAFT_API
