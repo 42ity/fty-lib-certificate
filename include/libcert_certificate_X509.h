@@ -1,5 +1,5 @@
 /*  =========================================================================
-    libcert_x509_certificate - X509 certificate
+    libcert_certificate_x509 - X509 certificate
 
     Copyright (c) the Contributors as noted in the AUTHORS file.
     This file is part of CZMQ, the high-level C binding for 0MQ:
@@ -11,24 +11,28 @@
     =========================================================================
 */
 
-#ifndef LIBCERT_X509_CERTIFICATE_H_INCLUDED
-#define LIBCERT_X509_CERTIFICATE_H_INCLUDED
+#ifndef LIBCERT_CERTIFICATE_X509_H_INCLUDED
+#define LIBCERT_CERTIFICATE_X509_H_INCLUDED
 
 #include <string>
 #include <openssl/x509.h>
 
+#include "libcert_pem_exportable.h"
+#include "libcert_public_key.h"
+
 namespace fty
 {
-    class CertificateX509
+    class CertificateX509 : public PemExportable
     {   
     public:
         explicit CertificateX509(const std::string & certPem);
         CertificateX509(const CertificateX509 & x509);
         ~CertificateX509();
-        
         std::string getSubject() const;
         std::string getDetails() const;
-        std::string getPem() const;
+        std::string getPem() const override;
+
+        PublicKey getPublicKey() const;
         
     private:
         X509 * m_x509 = NULL;
@@ -36,13 +40,9 @@ namespace fty
         void importPem(const std::string & certPem);
     };
 
-    inline bool operator==(const CertificateX509& lhs, const CertificateX509& rhs){ return (lhs.getPem() == rhs.getPem()); }
-    inline bool operator!=(const CertificateX509& lhs, const CertificateX509& rhs){ return !(lhs == rhs); }
 } // namespace fty
 
 //  Self test of this class
-void libcert_x509_certificate_test (bool verbose);
-
-
+void libcert_certificate_x509_test (bool verbose);
 
 #endif

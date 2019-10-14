@@ -17,7 +17,10 @@ src_libfty_lib_certificate_la_SOURCES = \
 
 if ENABLE_DRAFTS
 src_libfty_lib_certificate_la_SOURCES += \
-    src/libcert_X509_certificate.cc
+    src/libcert_pem_exportable.cc \
+    src/libcert_certificate_X509.cc \
+    src/libcert_public_key.cc \
+    src/libcert_keys.cc
 
 endif
 

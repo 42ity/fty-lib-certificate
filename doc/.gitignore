@@ -11,8 +11,14 @@
 *.xml7
 
 # Ignore the source doc texts generated from program sources
-libcert_x509_certificate.txt
-libcert_x509_certificate.doc
+libcert_pem_exportable.txt
+libcert_pem_exportable.doc
+libcert_certificate_x509.txt
+libcert_certificate_x509.doc
+libcert_public_key.txt
+libcert_public_key.doc
+libcert_keys.txt
+libcert_keys.doc
 
 # Make sure to track the manually maintained project description
 !*.adoc

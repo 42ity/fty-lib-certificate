@@ -55,6 +55,10 @@
         />
     
     <!-- Note: Credential asset mapping -->
-    <class name = "libcert_X509_certificate" selftest = "1">X509 certificate</class>
+    <class name = "libcert_pem_exportable" selftest = "0">Interface to export PEM</class>
+    <class name = "libcert_certificate_X509" selftest = "1">X509 certificate</class>
+    <class name = "libcert_public_key" selftest = "1">Public Key</class>
+    <class name = "libcert_keys" selftest = "1">Keys (Public and Private)</class>
+    <!--<class name = "libcert_X509_csr" selftest = "1">X509 Certificate signing request</class>-->
 
 </project>

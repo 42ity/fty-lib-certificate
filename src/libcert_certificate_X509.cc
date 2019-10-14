@@ -1,5 +1,5 @@
 /*  =========================================================================
-    libcert_x509_certificate - X509 certificate
+    libcert_certificate_x509 - X509 certificate
 
     Copyright (c) the Contributors as noted in the AUTHORS file.
     This file is part of CZMQ, the high-level C binding for 0MQ:
@@ -13,20 +13,22 @@
 
 /*
 @header
-    libcert_x509_certificate - X509 certificate
+    libcert_certificate_x509 - X509 certificate
 @discuss
 @end
 */
 
 #include "fty_lib_certificate_classes.h"
 
-#include <exception>
+#include <stdexcept>
 #include <sstream>
 #include <openssl/ssl.h>
 #include <openssl/pem.h>
 
-namespace cert
+namespace fty
 {
+    //This link is the best source code to extract everything for human: http://www.zedwood.com/article/c-openssl-parse-x509-certificate-pem 
+
     CertificateX509::CertificateX509(const std::string & certPem)
     {
         importPem(certPem);
@@ -106,8 +108,12 @@ namespace cert
         }
     }
 
-} // namepsace cert
+    PublicKey CertificateX509::getPublicKey() const
+    {
+        return PublicKey(X509_get_pubkey(m_x509));
+    }
 
+} // namepsace fty
 
 //  --------------------------------------------------------------------------
 //  Self test of this class
@@ -126,9 +132,9 @@ namespace cert
 #define SELFTEST_DIR_RW "src/selftest-rw"
 
 void
-libcert_x509_certificate_test (bool verbose)
+libcert_certificate_x509_test (bool verbose)
 {
-    printf (" * libcert_x509_certificate: ");
+    printf (" * libcert_certificate_x509: ");
 
     //  @selftest
     //  Simple create/destroy test

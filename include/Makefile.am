@@ -8,7 +8,10 @@ nobase_include_HEADERS = \
 
 if ENABLE_DRAFTS
 nobase_include_HEADERS += \
-    libcert_X509_certificate.h
+    libcert_pem_exportable.h \
+    libcert_certificate_X509.h \
+    libcert_public_key.h \
+    libcert_keys.h
 
 endif
 
