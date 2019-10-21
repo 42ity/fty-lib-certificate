@@ -80,7 +80,7 @@ namespace fty
     Keys Keys::generateRSA (int bits)
     {
         // 1. generate rsa key
-        BIGNUM *bne = BN_new();;
+        BIGNUM *bne = BN_new();
 
         if ((BN_set_word(bne, RSA_F4)) != 1) {
             BN_free(bne);
@@ -96,11 +96,12 @@ namespace fty
             throw std::runtime_error ("Unable to create private key: RSA generation failed");
         }
 
+        BN_free(bne);
+
         EVP_PKEY *evpPkey = EVP_PKEY_new();
 
         if ((EVP_PKEY_assign_RSA(evpPkey, rsaKey) == 0))
         {
-            BN_free(bne);
             RSA_free(rsaKey);
             EVP_PKEY_free(evpPkey);
             throw std::runtime_error("Failed to assign RSA key to private key.");
