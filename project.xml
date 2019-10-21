@@ -54,11 +54,12 @@
         release = "2.2-FTY-master"
         />
     
-    <!-- Note: Credential asset mapping -->
+    <!-- Note: Class of the library -->
     <class name = "libcert_pem_exportable" selftest = "0">Interface to export PEM</class>
     <class name = "libcert_certificate_X509" selftest = "1">X509 certificate</class>
     <class name = "libcert_public_key" selftest = "1">Public Key</class>
     <class name = "libcert_keys" selftest = "1">Keys (Public and Private)</class>
-    <!--<class name = "libcert_X509_csr" selftest = "1">X509 Certificate signing request</class>-->
+    <class name = "libcert_certificate_config" selftest = "1">Configuration for generating certificate or CSR</class>
+    <class name = "libcert_X509_csr" selftest = "1">X509 Certificate signing request</class>
 
 </project>
