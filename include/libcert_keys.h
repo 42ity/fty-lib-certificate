@@ -25,12 +25,6 @@ namespace fty
     // EC curve types
     enum ECKeyType
     {
-        PRIME192V1 = NID_X9_62_prime192v1,
-        PRIME192V2 = NID_X9_62_prime192v2,
-        PRIME192V3 = NID_X9_62_prime192v3,
-        PRIME239V1 = NID_X9_62_prime239v1,
-        PRIME239V2 = NID_X9_62_prime239v2,
-        PRIME239V3 = NID_X9_62_prime239v3,
         PRIME256V1 = NID_X9_62_prime256v1
     };
 

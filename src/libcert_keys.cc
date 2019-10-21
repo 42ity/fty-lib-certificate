@@ -168,6 +168,108 @@ void libcert_keys_test (bool verbose)
 
     //Next test
     testNumber = "1.1";
+    testName = "Test of Key PEM import-> success case";
+    printf ("\n----------------------------------------------------------------"
+            "-------\n");
+    {
+        printf (" *=>  Test #%s %s\n", testNumber.c_str (), testName.c_str ());
+
+        std::string goodPrivateKey =
+        "-----BEGIN EC PRIVATE KEY-----\n"\
+        "MHcCAQEEIL7VJ+0/m9Ue0L7k4zb6ocTm5e4FTdIYrK+A10nwKKt5oAoGCCqGSM49\n"\
+        "AwEHoUQDQgAE/YGxBElUytMJZyd7Waifmc6kfs8N88oCoGFrHk1BQf05gqWUADDw\n"\
+        "dEYnwoyPc82tWrizPTrsDwA5afpKo5Mxsw==\n"\
+        "-----END EC PRIVATE KEY-----\n";
+
+        try {
+            //Do the test here. If error throw expections
+
+            Keys pk_ec = Keys(goodPrivateKey);
+
+            printf (" *<=  Test #%s > OK\n", testNumber.c_str ());
+            testsResults.emplace_back (" Test #" + testNumber + " " + testName, true);
+        }
+        catch (const std::exception &e) {
+            printf (" *<=  Test #%s > Failed\n", testNumber.c_str ());
+            printf ("Error: %s\n", e.what ());
+            testsResults.emplace_back (" Test #" + testNumber + " " + testName, false);
+        }
+    }
+    printf ("OK\n");
+
+    //Next test
+    testNumber = "1.2";
+    testName = "Test of Key PEM import-> bad format #1";
+    printf ("\n----------------------------------------------------------------"
+            "-------\n");
+    {
+        printf (" *=>  Test #%s %s\n", testNumber.c_str (), testName.c_str ());
+
+        std::string badPrivateKey =
+        "-----BEGIN EC KEY-----\n"\
+        "MHcCAQEEIL7VJ+0/m9Ue0L7k4zb6ocTm5e4FTdIYrK+A10nwKKt5oAoGCCqGSM49\n"\
+        "AwEHoUQDQgAE/YGxBElUytMJZyd7Waifmc6kfs8N88oCoGFrHk1BQf05gqWUADDw\n"\
+        "dEYnwoyPc82tWrizPTrsDwA5afpKo5Mxsw==\n"\
+        "-----END EC PRIVATE KEY-----\n";
+
+        try {
+            //do the test here
+
+            Keys pk_ec = Keys(badPrivateKey);
+
+            //if the error works we should not go here.
+            throw std::logic_error("The function succeed");
+        }
+        catch(const std::runtime_error& e)
+        {
+            //expected error
+            printf(" *<=  Test #%s > OK\n", testNumber.c_str());
+            testsResults.emplace_back (" Test #"+testNumber+" "+testName,true);
+        }
+        catch(const std::exception& e)
+        {
+            printf(" *<=  Test #%s > Failed\n", testNumber.c_str());
+            printf("Error: %s\n",e.what());
+            testsResults.emplace_back (" Test #"+testNumber+" "+testName,false);
+        }
+
+    }
+    printf ("OK\n");
+
+    //Next test
+    testNumber = "1.3";
+    testName = "Test of Key PEM import-> bad format #2";
+    printf ("\n----------------------------------------------------------------"
+            "-------\n");
+    {
+        printf (" *=>  Test #%s %s\n", testNumber.c_str (), testName.c_str ());
+
+        try {
+            //do the test here
+
+            Keys pk_ec = Keys("---BAD STUFF---");
+
+            //if the error works we should not go here.
+            throw std::logic_error("The function succeed");
+        }
+        catch(const std::runtime_error& e)
+        {
+            //expected error
+            printf(" *<=  Test #%s > OK\n", testNumber.c_str());
+            testsResults.emplace_back (" Test #"+testNumber+" "+testName,true);
+        }
+        catch(const std::exception& e)
+        {
+            printf(" *<=  Test #%s > Failed\n", testNumber.c_str());
+            printf("Error: %s\n",e.what());
+            testsResults.emplace_back (" Test #"+testNumber+" "+testName,false);
+        }
+
+    }
+    printf ("OK\n");
+
+    //Next test
+    testNumber = "2.1";
     testName = "Test of RSA key generation -> success case";
     printf ("\n----------------------------------------------------------------"
             "-------\n");
@@ -190,177 +292,9 @@ void libcert_keys_test (bool verbose)
     }
     printf ("OK\n");
 
-    // Next test
-    testNumber = "2.1";
-    testName = "Test of EC key generation with PRIME192V1 -> success case";
-    printf ("\n----------------------------------------------------------------"
-            "-------\n");
-    {
-        printf (" *=>  Test #%s %s\n", testNumber.c_str (), testName.c_str ());
-
-        try {
-            //Do the test here. If error throw expections
-
-            Keys pk_ec = Keys::generateEC(ECKeyType::PRIME192V1);
-
-            printf (" *<=  Test #%s > OK\n", testNumber.c_str ());
-            testsResults.emplace_back (" Test #" + testNumber + " " + testName, true);
-        }
-        catch (const std::exception &e) {
-            printf (" *<=  Test #%s > Failed\n", testNumber.c_str ());
-            printf ("Error: %s\n", e.what ());
-            testsResults.emplace_back (" Test #" + testNumber + " " + testName, false);
-        }
-    }
-    printf ("OK\n");
-
     //Next test
     testNumber = "2.2";
-    testName = "Test of EC key generation with PRIME192V2 -> success case";
-    printf ("\n----------------------------------------------------------------"
-            "-------\n");
-    {
-        printf (" *=>  Test #%s %s\n", testNumber.c_str (), testName.c_str ());
-
-        try {
-            //Do the test here. If error throw expections
-
-            Keys pk_ec = Keys::generateEC(ECKeyType::PRIME192V2);
-
-            printf (" *<=  Test #%s > OK\n", testNumber.c_str ());
-            testsResults.emplace_back (" Test #" + testNumber + " " + testName, true);
-        }
-        catch (const std::exception &e) {
-            printf (" *<=  Test #%s > Failed\n", testNumber.c_str ());
-            printf ("Error: %s\n", e.what ());
-            testsResults.emplace_back (" Test #" + testNumber + " " + testName, false);
-        }
-    }
-    printf ("OK\n");
-
-    //Next test
-    testNumber = "2.3";
-    testName = "Test of EC key generation with PRIME192V3 -> success case";
-    printf ("\n----------------------------------------------------------------"
-            "-------\n");
-    {
-        printf (" *=>  Test #%s %s\n", testNumber.c_str (), testName.c_str ());
-
-        try {
-            //Do the test here. If error throw expections
-
-            Keys pk_ec = Keys::generateEC(ECKeyType::PRIME192V3);
-
-            printf (" *<=  Test #%s > OK\n", testNumber.c_str ());
-            testsResults.emplace_back (" Test #" + testNumber + " " + testName, true);
-        }
-        catch (const std::exception &e) {
-            printf (" *<=  Test #%s > Failed\n", testNumber.c_str ());
-            printf ("Error: %s\n", e.what ());
-            testsResults.emplace_back (" Test #" + testNumber + " " + testName, false);
-        }
-    }
-    printf ("OK\n");
-
-    //Next test
-    testNumber = "2.4";
-    testName = "Test of EC key generation with PRIME239V1 -> success case";
-    printf ("\n----------------------------------------------------------------"
-            "-------\n");
-    {
-        printf (" *=>  Test #%s %s\n", testNumber.c_str (), testName.c_str ());
-
-        try {
-            //Do the test here. If error throw expections
-
-            Keys pk_ec = Keys::generateEC(ECKeyType::PRIME239V1);
-
-            printf (" *<=  Test #%s > OK\n", testNumber.c_str ());
-            testsResults.emplace_back (" Test #" + testNumber + " " + testName, true);
-        }
-        catch (const std::exception &e) {
-            printf (" *<=  Test #%s > Failed\n", testNumber.c_str ());
-            printf ("Error: %s\n", e.what ());
-            testsResults.emplace_back (" Test #" + testNumber + " " + testName, false);
-        }
-    }
-    printf ("OK\n");
-
-    //Next test
-    testNumber = "2.5";
-    testName = "Test of EC key generation with PRIME239V2 -> success case";
-    printf ("\n----------------------------------------------------------------"
-            "-------\n");
-    {
-        printf (" *=>  Test #%s %s\n", testNumber.c_str (), testName.c_str ());
-
-        try {
-            //Do the test here. If error throw expections
-
-            Keys pk_ec = Keys::generateEC(ECKeyType::PRIME239V2);
-
-            printf (" *<=  Test #%s > OK\n", testNumber.c_str ());
-            testsResults.emplace_back (" Test #" + testNumber + " " + testName, true);
-        }
-        catch (const std::exception &e) {
-            printf (" *<=  Test #%s > Failed\n", testNumber.c_str ());
-            printf ("Error: %s\n", e.what ());
-            testsResults.emplace_back (" Test #" + testNumber + " " + testName, false);
-        }
-    }
-    printf ("OK\n");
-
-    //Next test
-    testNumber = "2.6";
-    testName = "Test of EC key generation with PRIME239V3 -> success case";
-    printf ("\n----------------------------------------------------------------"
-            "-------\n");
-    {
-        printf (" *=>  Test #%s %s\n", testNumber.c_str (), testName.c_str ());
-
-        try {
-            //Do the test here. If error throw expections
-
-            Keys pk_ec = Keys::generateEC(ECKeyType::PRIME239V3);
-
-            printf (" *<=  Test #%s > OK\n", testNumber.c_str ());
-            testsResults.emplace_back (" Test #" + testNumber + " " + testName, true);
-        }
-        catch (const std::exception &e) {
-            printf (" *<=  Test #%s > Failed\n", testNumber.c_str ());
-            printf ("Error: %s\n", e.what ());
-            testsResults.emplace_back (" Test #" + testNumber + " " + testName, false);
-        }
-    }
-    printf ("OK\n");
-
-    //Next test
-    testNumber = "2.7";
-    testName = "Test of EC key generation with PRIME256V1 -> success case";
-    printf ("\n----------------------------------------------------------------"
-            "-------\n");
-    {
-        printf (" *=>  Test #%s %s\n", testNumber.c_str (), testName.c_str ());
-
-        try {
-            //Do the test here. If error throw expections
-
-            Keys pk_ec = Keys::generateEC(ECKeyType::PRIME256V1);
-
-            printf (" *<=  Test #%s > OK\n", testNumber.c_str ());
-            testsResults.emplace_back (" Test #" + testNumber + " " + testName, true);
-        }
-        catch (const std::exception &e) {
-            printf (" *<=  Test #%s > Failed\n", testNumber.c_str ());
-            printf ("Error: %s\n", e.what ());
-            testsResults.emplace_back (" Test #" + testNumber + " " + testName, false);
-        }
-    }
-    printf ("OK\n");   
-
-    //Next test
-    testNumber = "3.1";
-    testName = "Test of RSA key PEM export-> success case";
+    testName = "Test of RSA key PEM export & import-> success case";
     printf ("\n----------------------------------------------------------------"
             "-------\n");
     {
@@ -389,11 +323,38 @@ void libcert_keys_test (bool verbose)
             testsResults.emplace_back (" Test #" + testNumber + " " + testName, false);
         }
     }
+    printf ("OK\n"); 
+
+
+    //Next test
+    testNumber = "3.1";
+    testName = "Test of EC key generation with PRIME256V1 -> success case";
+    printf ("\n----------------------------------------------------------------"
+            "-------\n");
+    {
+        printf (" *=>  Test #%s %s\n", testNumber.c_str (), testName.c_str ());
+
+        try {
+            //Do the test here. If error throw expections
+
+            Keys pk_ec = Keys::generateEC(ECKeyType::PRIME256V1);
+
+            printf (" *<=  Test #%s > OK\n", testNumber.c_str ());
+            testsResults.emplace_back (" Test #" + testNumber + " " + testName, true);
+        }
+        catch (const std::exception &e) {
+            printf (" *<=  Test #%s > Failed\n", testNumber.c_str ());
+            printf ("Error: %s\n", e.what ());
+            testsResults.emplace_back (" Test #" + testNumber + " " + testName, false);
+        }
+    }
     printf ("OK\n");   
+
+  
 
     //Next test
     testNumber = "3.2";
-    testName = "Test of EC key PEM export-> success case";
+    testName = "Test of EC key PEM export & import -> success case";
     printf ("\n----------------------------------------------------------------"
             "-------\n");
     {
