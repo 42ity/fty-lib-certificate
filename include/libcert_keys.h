@@ -22,6 +22,12 @@
 
 namespace fty
 {
+    // EC curve types
+    enum ECKeyType
+    {
+        PRIME256V1 = NID_X9_62_prime256v1
+    };
+
     //note: A private key containe also the public key matching with it.
     class Keys : public PemExportable
     {
@@ -31,7 +37,14 @@ namespace fty
 
         std::string getPem() const override;
         PublicKey getPublicKey() const;
+
+        //class methods
+        static  Keys generateRSA(int bits);
+        static  Keys generateEC(ECKeyType keyType);
+
     private:
+        Keys(EVP_PKEY * evpPkey);   // private copy ctor
+
         EVP_PKEY * m_evpPkey = NULL;
     };
 
