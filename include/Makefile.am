@@ -11,7 +11,9 @@ nobase_include_HEADERS += \
     libcert_pem_exportable.h \
     libcert_certificate_X509.h \
     libcert_public_key.h \
-    libcert_keys.h
+    libcert_keys.h \
+    libcert_certificate_config.h \
+    libcert_X509_csr.h
 
 endif
 
