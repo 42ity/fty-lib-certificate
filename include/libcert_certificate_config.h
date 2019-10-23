@@ -34,8 +34,7 @@ namespace fty
     class CertificateConfig
     {
         public:
-            CertificateConfig();
-
+        
             const uint8_t                & getVersion()          const { return m_version; }
             const TimeStamp              & getValidFrom()        const { return m_validFrom; }
             const TimeStamp              & getValidTo()          const { return m_validTo; }
@@ -49,18 +48,18 @@ namespace fty
             const std::list<std::string> & getIpList()           const { return m_ipList; }
             const std::list<std::string> & getDnsList()          const { return m_dnsList; }
             
-            void getVersion(const uint8_t &v)                    { m_version = v; }
-            void getValidFrom(const TimeStamp &v)                { m_validFrom = v; }
-            void getValidTo(const TimeStamp &v)                  { m_validTo = v; }
-            void getCountry(const std::string &v)                { m_country = v; }
-            void getState(const std::string &v)                  { m_state = v; }
-            void getLocality(const std::string &v)               { m_locality = v; }
-            void getOrganization(const std::string &v)           { m_organization = v; }
-            void getOrganizationUnit(const std::string &v)       { m_organizationUnit = v; }
-            void getCommonName(const std::string &v)             { m_commonName = v; }
-            void getEmail(const std::string &v)                  { m_email = v; }
-            void getIpList(const std::list<std::string> &v)      { m_ipList = v; }
-            void getDnsList(const std::list<std::string> &v)     { m_dnsList = v; }
+            void setVersion(const uint8_t &v)                    { m_version = v; }
+            void setValidFrom(const TimeStamp &v)                { m_validFrom = v; }
+            void setValidTo(const TimeStamp &v)                  { m_validTo = v; }
+            void setCountry(const std::string &v)                { m_country = v; }
+            void setState(const std::string &v)                  { m_state = v; }
+            void setLocality(const std::string &v)               { m_locality = v; }
+            void setOrganization(const std::string &v)           { m_organization = v; }
+            void setOrganizationUnit(const std::string &v)       { m_organizationUnit = v; }
+            void setCommonName(const std::string &v)             { m_commonName = v; }
+            void setEmail(const std::string &v)                  { m_email = v; }
+            void setIpList(const std::list<std::string> &v)      { m_ipList = v; }
+            void setDnsList(const std::list<std::string> &v)     { m_dnsList = v; }
 
         private:
             // V1
