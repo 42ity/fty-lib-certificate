@@ -29,14 +29,16 @@
 
 namespace fty
 {
+    using TimeStamp = int64_t;
+
     class CertificateConfig
     {
         public:
             CertificateConfig();
 
             const uint8_t                & getVersion()          const { return m_version; }
-            const uint64_t               & getValidFrom()        const { return m_validFrom; }
-            const uint64_t               & getValidTo()          const { return m_validTo; }
+            const TimeStamp              & getValidFrom()        const { return m_validFrom; }
+            const TimeStamp              & getValidTo()          const { return m_validTo; }
             const std::string            & getCountry()          const { return m_country; }
             const std::string            & getState()            const { return m_state; }
             const std::string            & getLocality()         const { return m_locality; }
@@ -48,8 +50,8 @@ namespace fty
             const std::list<std::string> & getDnsList()          const { return m_dnsList; }
             
             void getVersion(const uint8_t &v)                    { m_version = v; }
-            void getValidFrom(const uint64_t &v)                 { m_validFrom = v; }
-            void getValidTo(const uint64_t &v)                   { m_validTo = v; }
+            void getValidFrom(const TimeStamp &v)                { m_validFrom = v; }
+            void getValidTo(const TimeStamp &v)                  { m_validTo = v; }
             void getCountry(const std::string &v)                { m_country = v; }
             void getState(const std::string &v)                  { m_state = v; }
             void getLocality(const std::string &v)               { m_locality = v; }
@@ -63,8 +65,8 @@ namespace fty
         private:
             // V1
             uint8_t                 m_version;
-            uint64_t                m_validFrom;
-            uint64_t                m_validTo;
+            TimeStamp               m_validFrom;
+            TimeStamp               m_validTo;
             // subject
             std::string             m_country;
             std::string             m_state;
