@@ -50,3 +50,77 @@
     fun:_dl_init
     ...
 }
+{
+   <openssl_sign_cert>
+   Memcheck:Cond
+   ...
+   obj:/usr/lib/x86_64-linux-gnu/libcrypto.so.1.0.0
+   ...
+}
+{
+   <openssl_sign_cert_2>
+   Memcheck:Leak
+   ...
+   obj:/usr/lib/x86_64-linux-gnu/libcrypto.so.1.0.0
+   ...
+
+}
+{
+   <libcrypto_value8>
+   Memcheck:Value8
+   ...
+   obj:/usr/lib/x86_64-linux-gnu/libcrypto.so.1.0.0
+   ...
+}
+{
+   <rsa_sign_cond>
+   Memcheck:Cond
+   ...
+   fun:RSA_sign
+   ...
+}
+{
+   <rsa_sign_value8>
+   Memcheck:Value8
+   ...
+   fun:RSA_sign
+   ...
+}
+{
+   <rsa_new_method_leak>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   ...
+   fun:RSA_new_method
+   ...
+}
+{
+   <openssl_x509_sign_cond>
+   Memcheck:Cond
+   ...
+   fun:X509_sign
+   ...
+}
+{
+   <openssl_x509_sign_value8>
+   Memcheck:Value8
+   ...
+   fun:X509_sign
+   ...
+}
+{
+   <asn1_item_new_leak>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   ...
+   fun:ASN1_item_new
+   ...
+}
+{
+   <crypto_malloc_leak>
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   ...
+   fun:CRYPTO_malloc
+   ...
+}
