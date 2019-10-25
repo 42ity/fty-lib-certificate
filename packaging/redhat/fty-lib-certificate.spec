@@ -48,7 +48,6 @@ BuildRequires:  pkgconfig
 BuildRequires:  xmlto
 BuildRequires:  gcc-c++
 BuildRequires:  openssl-devel
-BuildRequires:  cxxtools-devel
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 
 %description
@@ -73,7 +72,6 @@ Summary:        library of helpers for ssl certificate
 Group:          System/Libraries
 Requires:       libfty_lib_certificate1 = %{version}
 Requires:       openssl-devel
-Requires:       cxxtools-devel
 
 %description devel
 library of helpers for ssl certificate development tools
