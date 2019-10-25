@@ -28,6 +28,8 @@ namespace fty
         PRIME256V1 = NID_X9_62_prime256v1
     };
 
+    class CertificateX509;
+
     //note: A private key containe also the public key matching with it.
     class Keys : public PemExportable
     {
@@ -46,6 +48,8 @@ namespace fty
         Keys(EVP_PKEY * evpPkey);   // private copy ctor
 
         EVP_PKEY * m_evpPkey = NULL;
+    
+    friend class CertificateX509;
     };
 
 } // namespace fty

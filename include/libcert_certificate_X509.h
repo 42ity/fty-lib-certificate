@@ -15,29 +15,41 @@
 #define LIBCERT_CERTIFICATE_X509_H_INCLUDED
 
 #include <string>
+#include <memory>
+
 #include <openssl/x509.h>
+#include <openssl/x509v3.h>
 
 #include "libcert_pem_exportable.h"
 #include "libcert_public_key.h"
 
+#include "libcert_certificate_config.h"
+
 namespace fty
 {
+    using X509Ptr = std::unique_ptr<X509, decltype(&X509_free)>;
+
     class CertificateX509 : public PemExportable
     {   
     public:
         explicit CertificateX509(const std::string & certPem);
         CertificateX509(const CertificateX509 & x509);
         ~CertificateX509();
+
         std::string getSubject() const;
         std::string getDetails() const;
         std::string getPem() const override;
 
         PublicKey getPublicKey() const;
+
+        // class methods
+        static CertificateX509 selfSignSha256(const Keys &key, const CertificateConfig &cfg);
         
     private:
-        X509 * m_x509 = NULL;
-
+        CertificateX509(X509Ptr cert);
         void importPem(const std::string & certPem);
+
+        X509 * m_x509 = NULL;
     };
 
 } // namespace fty
