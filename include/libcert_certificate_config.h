@@ -1,5 +1,5 @@
 /*  =========================================================================
-    libcert_x509_csr - X509 Certificate signing request
+    libcert_certificate_config - X509 Certificate configuration
 
     Copyright (C) 2014 - 2019 Eaton
 

@@ -22,7 +22,7 @@ src_libfty_lib_certificate_la_SOURCES += \
     src/libcert_public_key.cc \
     src/libcert_keys.cc \
     src/libcert_certificate_config.cc \
-    src/libcert_X509_csr.cc
+    src/libcert_csr_X509.cc
 
 endif
 

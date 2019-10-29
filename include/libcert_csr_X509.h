@@ -1,5 +1,5 @@
 /*  =========================================================================
-    libcert_x509_csr - X509 Certificate signing request
+    libcert_csr_x509 - X509 Certificate signing request
 
     Copyright (C) 2014 - 2019 Eaton
 
@@ -22,8 +22,47 @@
 #ifndef LIBCERT_X509_CSR_H_INCLUDED
 #define LIBCERT_X509_CSR_H_INCLUDED
 
+#include <string>
+#include <memory>
+
+#include <openssl/x509.h>
+#include <openssl/x509v3.h>
+
+#include "libcert_pem_exportable.h"
+#include "libcert_public_key.h"
+
+#include "libcert_certificate_config.h"
+
+namespace fty
+{
+    using X509ReqPtr = std::unique_ptr<X509_REQ, decltype(&X509_REQ_free)>;
+
+    class CsrX509 : public PemExportable
+    {   
+    public:
+        explicit CsrX509(const std::string & csrPem);
+        CsrX509(const CsrX509 & x509Req);
+        ~CsrX509();
+
+        std::string getSubject() const;
+        std::string getDetails() const;
+        std::string getPem() const override;
+
+        PublicKey getPublicKey() const;
+
+        // class methods
+        static CsrX509 generateCsr(const Keys &key, const CertificateConfig &cfg);
+        
+    private:
+        CsrX509(X509ReqPtr csr);
+        void importPem(const std::string & certPem);
+
+        X509_REQ * m_x509Req = NULL;
+    };
+
+} // namespace fty
+
 //  Self test of this class
-void
-libcert_x509_csr_test (bool verbose);
+void libcert_csr_x509_test (bool verbose);
 
 #endif

@@ -13,7 +13,7 @@ nobase_include_HEADERS += \
     libcert_public_key.h \
     libcert_keys.h \
     libcert_certificate_config.h \
-    libcert_X509_csr.h
+    libcert_csr_X509.h
 
 endif
 
