@@ -46,13 +46,6 @@
     <abi current = "1" revision = "0" age = "0" />
 
     <use project = "openssl" header = "openssl/sha.h" debian_name = "libssl-dev"/>
-
-    <use project = "cxxtools"
-        test = "cxxtools::Utf8Codec::Utf8Codec"
-        header = "cxxtools/allocator.h"
-        repository = "https://github.com/42ity/cxxtools.git"
-        release = "2.2-FTY-master"
-        />
     
     <!-- Note: Class of the library -->
     <class name = "libcert_pem_exportable" selftest = "0">Interface to export PEM</class>

@@ -31,7 +31,6 @@
 
 //  External dependencies
 #include <openssl/sha.h>
-#include <cxxtools/allocator.h>
 
 //  FTY_LIB_CERTIFICATE version macros for compile-time API detection
 #define FTY_LIB_CERTIFICATE_VERSION_MAJOR 1

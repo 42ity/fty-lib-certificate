@@ -10,11 +10,10 @@ AM_CXXFLAGS = \
 
 AM_CPPFLAGS = \
     ${openssl_CFLAGS} \
-    ${cxxtools_CFLAGS} \
     -D__STDC_FORMAT_MACROS \
     -I$(srcdir)/include
 
-project_libs = ${openssl_LIBS} ${cxxtools_LIBS}
+project_libs = ${openssl_LIBS}
 
 SUBDIRS = doc
 SUBDIRS += include
@@ -36,7 +35,6 @@ DISTCLEANFILES =
 if ENABLE_DIST_CMAKEFILES
 EXTRA_DIST += \
     Findopenssl.cmake \
-    Findcxxtools.cmake \
     builds/cmake/Modules/ClangFormat.cmake \
     builds/cmake/clang-format-check.sh.in \
     builds/cmake/Config.cmake.in \
