@@ -36,7 +36,7 @@ namespace fty
 
     /* Local helper function definitions */
     static SerialNumberPtr generateSerialNumber();
-    static void addCertificateExt(X509Ptr & cert, std::string type, std::string value);
+    static void addExtension(X509Ptr & cert, int nid, const std::string & value);
     static void X509AddEntry(X509Ptr & cert, const std::string & fieldName, const std::string & fieldData);
     
     /* Local constants */
@@ -176,19 +176,19 @@ namespace fty
         // set ip addresses
         for (const std::string & ip : cfg.getIpList())
         {
-            addCertificateExt(cert, EXT_IP_TYPE, ip);
+            addExtension(cert, NID_subject_alt_name, (EXT_IP_TYPE + ip));
         }
 
         // set dns addresses
         for (const std::string & dns : cfg.getDnsList())
         {
-            addCertificateExt(cert, EXT_DNS_TYPE, dns);
+            addExtension(cert, NID_subject_alt_name, (EXT_DNS_TYPE + dns));
         }
 
         // signing certificate
         if ( !X509_sign(cert.get(), key.m_evpPkey, EVP_sha256()))
         {
-            throw std::runtime_error( "Unable to sign x509 certificate" );
+            throw std::runtime_error("Unable to sign x509 certificate");
         }
 
         return CertificateX509(std::move(cert));
@@ -253,22 +253,14 @@ namespace fty
         return std::move(serialNumber);
     }
 
-    void addCertificateExt(X509Ptr & cert, std::string type, std::string value){
-        X509_EXTENSION *ex;
-        X509V3_CTX ctx;
+    void addExtension(X509Ptr & cert, int nid, const std::string & value)
+    {
+        X509_EXTENSION *ex = X509V3_EXT_conf_nid(NULL, NULL, nid, const_cast<char*>(value.c_str()));
 
-        // set context
-        X509V3_set_ctx_nodb(&ctx);
-
-        X509V3_set_ctx(&ctx, cert.get(), cert.get(), NULL, NULL, 0);
-
-        std::string ipAltNameEntry(type + value);
-
-        ex = X509V3_EXT_conf_nid( NULL, &ctx, NID_subject_alt_name, const_cast<char*>(ipAltNameEntry.c_str()));
-        if (!ex)
+        if (ex == NULL)
         {
             X509_EXTENSION_free(ex);
-            throw std::runtime_error ("Unable to set IP");
+            throw std::runtime_error ("Unable to set extension");
         }
 
         X509_add_ext(cert.get(), ex, -1);
@@ -281,7 +273,7 @@ namespace fty
 
         if((X509_NAME_add_entry_by_txt(certName, fieldName.c_str(), MBSTRING_ASC, (unsigned char *) fieldData.c_str(), -1, -1, 0)) == 0)
         {
-            throw std::runtime_error ("Unable to "+fieldName+" to the value "+fieldData);
+            throw std::runtime_error ("Unable to set " + fieldName + " to the value " + fieldData);
         }
     }
 } // namepsace fty
