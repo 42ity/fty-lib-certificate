@@ -108,7 +108,7 @@ typedef struct _libcert_keys_t libcert_keys_t;
 #define LIBCERT_KEYS_T_DEFINED
 typedef struct _libcert_certificate_config_t libcert_certificate_config_t;
 #define LIBCERT_CERTIFICATE_CONFIG_T_DEFINED
-typedef struct _libcert_x509_csr_t libcert_x509_csr_t;
+typedef struct _libcert_csr_x509_t libcert_csr_x509_t;
 #define LIBCERT_X509_CSR_T_DEFINED
 #endif // FTY_LIB_CERTIFICATE_BUILD_DRAFT_API
 
@@ -120,7 +120,7 @@ typedef struct _libcert_x509_csr_t libcert_x509_csr_t;
 #include "libcert_public_key.h"
 #include "libcert_keys.h"
 #include "libcert_certificate_config.h"
-#include "libcert_X509_csr.h"
+#include "libcert_csr_X509.h"
 #endif // FTY_LIB_CERTIFICATE_BUILD_DRAFT_API
 
 #ifdef FTY_LIB_CERTIFICATE_BUILD_DRAFT_API

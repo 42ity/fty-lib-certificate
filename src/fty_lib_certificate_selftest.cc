@@ -45,7 +45,7 @@ all_tests [] = {
     { "libcert_public_key", libcert_public_key_test, false, true, NULL },
     { "libcert_keys", libcert_keys_test, false, true, NULL },
     { "libcert_certificate_config", libcert_certificate_config_test, false, true, NULL },
-    { "libcert_x509_csr", libcert_x509_csr_test, false, true, NULL },
+    { "libcert_csr_x509", libcert_csr_x509_test, false, true, NULL },
 #endif // FTY_LIB_CERTIFICATE_BUILD_DRAFT_API
     {NULL, NULL, 0, 0, NULL}          //  Sentinel
 };

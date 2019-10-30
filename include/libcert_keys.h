@@ -29,6 +29,7 @@ namespace fty
     };
 
     class CertificateX509;
+    class CsrX509;
 
     //note: A private key containe also the public key matching with it.
     class Keys : public PemExportable
@@ -50,6 +51,7 @@ namespace fty
         EVP_PKEY * m_evpPkey = NULL;
     
     friend class CertificateX509;
+    friend class CsrX509;
     };
 
 } // namespace fty

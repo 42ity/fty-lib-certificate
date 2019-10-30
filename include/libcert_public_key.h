@@ -22,6 +22,7 @@
 namespace fty
 {
     class CertificateX509;
+    class Csr509;
     class Keys;
 
     class PublicKey : public PemExportable
@@ -35,6 +36,7 @@ namespace fty
         EVP_PKEY * m_evpPkey = NULL;
 
     friend class CertificateX509;
+    friend class CsrX509;
     friend class Keys;
     };
 }
