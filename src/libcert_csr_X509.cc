@@ -313,7 +313,7 @@ libcert_csr_x509_test (bool verbose)
 
     //Next test
     testNumber = "1.2";
-    testName = "Create request-> bad case (empty configuration)";
+    testName = "Create CSR-> bad case (empty configuration)";
     printf ("\n----------------------------------------------------------------"
             "-------\n");
     {
@@ -394,7 +394,7 @@ libcert_csr_x509_test (bool verbose)
 
     //Next test
     testNumber = "3.1";
-    testName = "Check csr import-> success case";
+    testName = "Check CSR import-> success case";
     printf ("\n----------------------------------------------------------------"
             "-------\n");
     {
@@ -439,7 +439,7 @@ libcert_csr_x509_test (bool verbose)
 
     //Next test
     testNumber = "3.2";
-    testName = "Check certificate import-> bad case";
+    testName = "Check CSR import-> bad case";
     printf ("\n----------------------------------------------------------------"
             "-------\n");
     {
@@ -498,7 +498,7 @@ libcert_csr_x509_test (bool verbose)
 	uint32_t testsFailed = 0;
 
 
-	printf("\tSummary tests from libcert_keys\n");
+	printf("\tSummary tests from libcert_csr_x509\n");
 	for(const auto & result : testsResults)
 	{
 		if(result.second)
