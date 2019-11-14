@@ -20,6 +20,7 @@
         <option name = "clangformat_allow_failures" value = "1" />
         <option name = "use_pkg_deps_prereqs_source" value = "0" />
         <option name = "require_gitignore" value = "1" />
+        <option name = "travis_implicit_releases" value = "1" />
     </target>
 
     <target name = "jenkins" >

@@ -35,11 +35,7 @@ default|default-Werror|default-with-docs|valgrind|clang-format-check)
         # Proto installation area for this project and its deps
         rm -rf ./tmp
     fi
-    if [ -d "./tmp-deps" ]; then
-        # Checkout/unpack and build area for dependencies
-        rm -rf ./tmp-deps
-    fi
-    mkdir -p tmp tmp-deps
+    mkdir -p tmp
     BUILD_PREFIX=$PWD/tmp
 
     PATH="`echo "$PATH" | sed -e 's,^/usr/lib/ccache/?:,,' -e 's,:/usr/lib/ccache/?:,,' -e 's,:/usr/lib/ccache/?$,,' -e 's,^/usr/lib/ccache/?$,,'`"
@@ -177,19 +173,9 @@ default|default-Werror|default-with-docs|valgrind|clang-format-check)
     CONFIG_OPTS_COMMON=$CONFIG_OPTS
     CONFIG_OPTS+=("--with-docs=no")
 
-    # Clone and build dependencies, if not yet installed to Travis env as DEBs
-    # or MacOS packages; other OSes are not currently supported by Travis cloud
-    [ -z "$CI_TIME" ] || echo "`date`: Starting build of dependencies (if any)..."
-
-    # Start of recipe for dependency: openssl
-    if ! (command -v dpkg-query >/dev/null 2>&1 && dpkg-query --list libssl-dev >/dev/null 2>&1) || \
-           (command -v brew >/dev/null 2>&1 && brew ls --versions openssl >/dev/null 2>&1) \
-    ; then
-        echo ""
-        echo "WARNING: Can not build prerequisite 'openssl'" >&2
-        echo "because neither tarball nor repository sources are known for it," >&2
-        echo "and it was not installed as a package; this may cause the test to fail!" >&2
-    fi
+    # Build dependencies, if needed
+    export DEPENDENCIES_DIR="`pwd`/tmp-deps"
+    (source ./ci_dependencies.sh)
 
     # Build and check this project; note that zprojects always have an autogen.sh
     echo ""
