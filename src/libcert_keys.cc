@@ -32,18 +32,12 @@ namespace fty
 {
     Keys::Keys (const std::string &privateKeyPem)
     {
-        BIO *bio = BIO_new_mem_buf ((void *) privateKeyPem.c_str (), privateKeyPem.length ());
+        importPem(privateKeyPem);
+    }
 
-        if (bio == NULL) {
-            throw std::runtime_error ("Impossible to create the private key");
-        }
-
-        m_evpPkey = PEM_read_bio_PrivateKey (bio, NULL, NULL, NULL);
-        BIO_free (bio);
-
-        if (m_evpPkey == NULL) {
-            throw std::runtime_error ("Impossible to create the private key");
-        }
+    Keys::Keys (const Keys & key)
+    {
+        importPem(key.getPem());
     }
 
     Keys::~Keys ()
@@ -137,6 +131,22 @@ namespace fty
     Keys::Keys (EVP_PKEY *evpPkey)
     {
         m_evpPkey = evpPkey;
+
+        if (m_evpPkey == NULL) {
+            throw std::runtime_error ("Impossible to create the private key");
+        }
+    }
+
+    void Keys::importPem(const std::string & privateKeyPem)
+    {
+        BIO *bio = BIO_new_mem_buf ((void *) privateKeyPem.c_str (), privateKeyPem.length ());
+
+        if (bio == NULL) {
+            throw std::runtime_error ("Impossible to create the private key");
+        }
+
+        m_evpPkey = PEM_read_bio_PrivateKey (bio, NULL, NULL, NULL);
+        BIO_free (bio);
 
         if (m_evpPkey == NULL) {
             throw std::runtime_error ("Impossible to create the private key");
