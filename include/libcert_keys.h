@@ -36,6 +36,7 @@ namespace fty
     {
     public:
         Keys(const std::string & privateKeyPem);
+        Keys (const Keys & key);
         ~Keys();
 
         std::string getPem() const override;
@@ -47,6 +48,7 @@ namespace fty
 
     private:
         Keys(EVP_PKEY * evpPkey);   // private copy ctor
+        void importPem(const std::string & privateKeyPem);
 
         EVP_PKEY * m_evpPkey = NULL;
     
