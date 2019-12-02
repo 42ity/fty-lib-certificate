@@ -13,6 +13,7 @@
 
     <target name = "travis" >
         <!-- option name = "clangformat_implem" value = "autotools" / -->
+        <option name = "recursive_dependencies" value = "true"/>
         <option name = "use_cmake" value = "0" />
         <option name = "dist" value = "bionic" />
         <option name = "shadow_gcc" value = "2" />
@@ -39,7 +40,6 @@
     <classfilename use-cxx = "true" source-extension = "cc" header-extension = "h"
         pretty-print = "no" keep-tree = "true" />
 
-    <!--<classfilename use-cxx-gcc-4-9 = "true"/>-->
 
     <include filename = "license.xml" />
     <version major = "1" minor = "0" patch = "0" />

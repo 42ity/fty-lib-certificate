@@ -130,10 +130,7 @@ nbproject/
 
 # editor backups
 *~
-
-# Remove CMake
-CTestTestfile.cmake
-CMake*
-cmake_install.cmake
+# CMake in general
 builds/cmake/
+CMake*
 *.cmake
