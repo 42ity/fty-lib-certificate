@@ -23,6 +23,8 @@ libcert_certificate_config.txt
 libcert_certificate_config.doc
 libcert_csr_x509.txt
 libcert_csr_x509.doc
+libcert_crypto.txt
+libcert_crypto.doc
 
 # Make sure to track the manually maintained project description
 !*.adoc

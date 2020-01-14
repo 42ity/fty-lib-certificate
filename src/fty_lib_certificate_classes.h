@@ -33,6 +33,10 @@
 #include "../include/fty-lib-certificate.h"
 
 //  Opaque class structures to allow forward references
+#ifndef LIBCERT_OPENSSL_WRAPPER_T_DEFINED
+typedef struct _libcert_openssl_wrapper_t libcert_openssl_wrapper_t;
+#define LIBCERT_OPENSSL_WRAPPER_T_DEFINED
+#endif
 
 //  Extra headers
 
@@ -75,6 +79,7 @@ safe_malloc (size_t size, const char *file, unsigned line)
 #endif // __CZMQ_PRELUDE_H_INCLUDED__
 
 
+#include "libcert_openssl_wrapper.h"
 
 //  *** To avoid double-definitions, only define if building without draft ***
 #ifndef FTY_LIB_CERTIFICATE_BUILD_DRAFT_API

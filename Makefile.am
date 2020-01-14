@@ -42,6 +42,7 @@ EXTRA_DIST += \
 endif
 
 EXTRA_DIST += \
+    src/libcert_openssl_wrapper.h \
     LICENSE \
     README.md \
     src/fty_lib_certificate_classes.h
