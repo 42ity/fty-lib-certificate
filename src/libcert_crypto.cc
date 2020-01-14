@@ -34,61 +34,63 @@
 
 namespace fty
 {
-  std::string encrypt(const std::string & plainData, const std::string & passphrase)
-  {
-    // Convert data to binary
-    ByteField plainBinary = strToBytes(plainData);
-    // Generate key and initial vector
-    ByteField key = generateSHA256Digest(strToBytes(passphrase));
-    ByteField iv = randomVector(IV_BYTE_SIZE);
-    std::string cyphered = base64Encode(iv);
-    cyphered += ":";
-    cyphered += base64Encode(Aes256cbcEncrypt(plainBinary, key, iv));
-    // CAUTION: need to clean memory to avoid key and init vector stay in the
-    // heap after deallocation
-    clean(iv);
-    clean(key);
-    // Return cyphered string
-    return cyphered;
-  }
-
-  std::string decrypt(const std::string & encryptedData, const std::string& passphrase)
-  {
-    // If input is empty string do not try to decypher and return an empty string
-    if( encryptedData.empty() )
+    static int PASS_PHRASE_MIN_LENGTH = 8;
+    
+    std::string encrypt(const std::string & plainData, const std::string & passphrase)
     {
-      return "";
+      // Convert data to binary
+      ByteField plainBinary = strToBytes(plainData);
+      // Generate key and initial vector
+      ByteField key = generateSHA256Digest(strToBytes(passphrase));
+      ByteField iv = randomVector(IV_BYTE_SIZE);
+      std::string cyphered = base64Encode(iv);
+      cyphered += ":";
+      cyphered += base64Encode(Aes256cbcEncrypt(plainBinary, key, iv));
+      // CAUTION: need to clean memory to avoid key and init vector stay in the
+      // heap after deallocation
+      clean(iv);
+      clean(key);
+      // Return cyphered string
+      return cyphered;
     }
 
-    // Ensure there is a ':' after initial vector
-    if ((encryptedData.length() <= IV_BASE64_SIZE) || (encryptedData[IV_BASE64_SIZE] != ':'))
+    std::string decrypt(const std::string & encryptedData, const std::string& passphrase)
     {
-      throw std::invalid_argument("Invalid cyphered format");
-    }
-    // Compute key from passphrase
-    ByteField key = generateSHA256Digest(strToBytes(passphrase));
-    // Extract init vector
-    ByteField iv = base64Decode(encryptedData, 0, IV_BASE64_SIZE);
-    // Decrypt
-    ByteField plainBinary = Aes256cbcDecrypt(base64Decode(encryptedData, IV_BASE64_SIZE + 1), key, iv);
-    // CAUTION: need to clean memory to avoid key and init vector stay in the
-    // heap after deallocation
-    clean(iv);
-    clean(key);
-    // Convert binary to string
-    return bytesToStr(plainBinary);
-
-  }
-  
-  bool checkPassphraseFormat(const std::string& phassphrase)
-  {
-      bool returnValue = false;
-      if (!phassphrase.empty() && phassphrase.size() >= PASS_PHRASE_MIN_LENGTH)
+      // If input is empty string do not try to decypher and return an empty string
+      if( encryptedData.empty() )
       {
-          returnValue = true;
+        return "";
       }
-      return returnValue;
-  }
+
+      // Ensure there is a ':' after initial vector
+      if ((encryptedData.length() <= IV_BASE64_SIZE) || (encryptedData[IV_BASE64_SIZE] != ':'))
+      {
+        throw std::invalid_argument("Invalid cyphered format");
+      }
+      // Compute key from passphrase
+      ByteField key = generateSHA256Digest(strToBytes(passphrase));
+      // Extract init vector
+      ByteField iv = base64Decode(encryptedData, 0, IV_BASE64_SIZE);
+      // Decrypt
+      ByteField plainBinary = Aes256cbcDecrypt(base64Decode(encryptedData, IV_BASE64_SIZE + 1), key, iv);
+      // CAUTION: need to clean memory to avoid key and init vector stay in the
+      // heap after deallocation
+      clean(iv);
+      clean(key);
+      // Convert binary to string
+      return bytesToStr(plainBinary);
+
+    }
+  
+    bool checkPassphraseFormat(const std::string& phassphrase)
+    {
+        bool returnValue = false;
+        if (!phassphrase.empty() && phassphrase.size() >= PASS_PHRASE_MIN_LENGTH)
+        {
+            returnValue = true;
+        }
+        return returnValue;
+    }
 
 } //namespace fty
 

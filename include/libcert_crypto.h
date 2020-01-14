@@ -24,30 +24,28 @@
 
 namespace fty
 {
-  static int PASS_PHRASE_MIN_LENGTH = 8;
-   
-  /**
-   * Encrypt a string
-   * @param plainData Plain Text Input
-   * @param passphrase Pass phrase
-   * @return The Plain text encrypted
-   */
-  std::string encrypt(const std::string& plainData, const std::string& passphrase);
+    /**
+     * Encrypt a string
+     * @param plainData Plain Text Input
+     * @param passphrase Pass phrase
+     * @return The Plain text encrypted
+     */
+    std::string encrypt(const std::string& plainData, const std::string& passphrase);
 
-  /**
-   * Decrypt a string
-   * @param encryptedData The encrypted data
-   * @param passphrase Pass phrase
-   * @return The Plain text decrypted
-   */
-  std::string decrypt(const std::string& encryptedData, const std::string& passphrase);
+    /**
+     * Decrypt a string
+     * @param encryptedData The encrypted data
+     * @param passphrase Pass phrase
+     * @return The Plain text decrypted
+     */
+    std::string decrypt(const std::string& encryptedData, const std::string& passphrase);
   
-  /**
-   * Check pass phraseFormat
-   * @param phassphrase
-   * @return 
-   */
-  bool checkPassphraseFormat(const std::string& phassphrase);
+    /**
+     * Check pass phraseFormat
+     * @param phassphrase
+     * @return 
+     */
+    bool checkPassphraseFormat(const std::string& phassphrase);
 
 } //namespace fty
 
