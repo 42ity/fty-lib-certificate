@@ -34,7 +34,7 @@
 
 namespace fty
 {
-    static int PASS_PHRASE_MIN_LENGTH = 8;
+    static unsigned int PASS_PHRASE_MIN_LENGTH = 8;
     
     std::string encrypt(const std::string & plainData, const std::string & passphrase)
     {
