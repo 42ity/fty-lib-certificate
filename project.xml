@@ -54,5 +54,7 @@
     <class name = "libcert_keys" selftest = "1">Keys (Public and Private)</class>
     <class name = "libcert_certificate_config" selftest = "1">Configuration for generating certificate or CSR</class>
     <class name = "libcert_csr_X509" selftest = "1">X509 Certificate signing request</class>
+    <class name = "libcert_openssl_wrapper" private = "1" selftest = "0">Openssl wrapper for crypto</class>
+    <class name = "libcert_crypto" selftest = "0">Cryptography interface</class>
 
 </project>

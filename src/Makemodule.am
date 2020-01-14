@@ -13,6 +13,7 @@ lib_LTLIBRARIES += src/libfty_lib_certificate.la
 pkgconfig_DATA = src/libfty_lib_certificate.pc
 
 src_libfty_lib_certificate_la_SOURCES = \
+    src/libcert_openssl_wrapper.cc \
     src/platform.h
 
 if ENABLE_DRAFTS
@@ -22,7 +23,8 @@ src_libfty_lib_certificate_la_SOURCES += \
     src/libcert_public_key.cc \
     src/libcert_keys.cc \
     src/libcert_certificate_config.cc \
-    src/libcert_csr_X509.cc
+    src/libcert_csr_X509.cc \
+    src/libcert_crypto.cc
 
 endif
 
