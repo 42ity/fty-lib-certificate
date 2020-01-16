@@ -91,6 +91,11 @@ namespace fty
         }
         return returnValue;
     }
+    
+    std::string getPassphraseFormat()
+    {
+        return std::to_string(PASS_PHRASE_MIN_LENGTH);
+    }
 
 } //namespace fty
 

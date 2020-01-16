@@ -43,9 +43,16 @@ namespace fty
     /**
      * Check pass phraseFormat
      * @param phassphrase
-     * @return 
+     * @return True if the passphrase is Ok, otherwise false. 
      */
     bool checkPassphraseFormat(const std::string& phassphrase);
+    
+    /**
+     * Get passphrase format
+     * @param phassphrase
+     * @return The passphrase format
+     */
+    std::string getPassphraseFormat();
 
 } //namespace fty
 
