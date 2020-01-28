@@ -1,7 +1,7 @@
 /*  =========================================================================
     libcert_keys - Keys class header
 
-    Copyright (C) 2014 - 2020 Eaton
+    Copyright (C) 2019 - 2020 Eaton
 
     This program is free software; you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
