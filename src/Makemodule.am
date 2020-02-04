@@ -141,6 +141,63 @@ check-verbose: src/fty_lib_certificate_selftest $(top_builddir)/$(SELFTEST_DIR_R
 	$(LIBTOOL) --mode=execute $(builddir)/src/fty_lib_certificate_selftest -v
 	$(MAKE) check-empty-selftest-rw
 
+check-libcert_pem_exportable: src/fty_lib_certificate_selftest $(top_builddir)/$(SELFTEST_DIR_RW) $(top_builddir)/$(SELFTEST_DIR_RO)
+	$(LIBTOOL) --mode=execute $(builddir)/src/fty_lib_certificate_selftest -t libcert_pem_exportable
+	$(MAKE) check-empty-selftest-rw
+check-libcert_pem_exportable-verbose: src/fty_lib_certificate_selftest $(top_builddir)/$(SELFTEST_DIR_RW) $(top_builddir)/$(SELFTEST_DIR_RO)
+	$(LIBTOOL) --mode=execute $(builddir)/src/fty_lib_certificate_selftest -v -t libcert_pem_exportable
+	$(MAKE) check-empty-selftest-rw
+
+check-libcert_certificate_x509: src/fty_lib_certificate_selftest $(top_builddir)/$(SELFTEST_DIR_RW) $(top_builddir)/$(SELFTEST_DIR_RO)
+	$(LIBTOOL) --mode=execute $(builddir)/src/fty_lib_certificate_selftest -t libcert_certificate_x509
+	$(MAKE) check-empty-selftest-rw
+check-libcert_certificate_x509-verbose: src/fty_lib_certificate_selftest $(top_builddir)/$(SELFTEST_DIR_RW) $(top_builddir)/$(SELFTEST_DIR_RO)
+	$(LIBTOOL) --mode=execute $(builddir)/src/fty_lib_certificate_selftest -v -t libcert_certificate_x509
+	$(MAKE) check-empty-selftest-rw
+
+check-libcert_public_key: src/fty_lib_certificate_selftest $(top_builddir)/$(SELFTEST_DIR_RW) $(top_builddir)/$(SELFTEST_DIR_RO)
+	$(LIBTOOL) --mode=execute $(builddir)/src/fty_lib_certificate_selftest -t libcert_public_key
+	$(MAKE) check-empty-selftest-rw
+check-libcert_public_key-verbose: src/fty_lib_certificate_selftest $(top_builddir)/$(SELFTEST_DIR_RW) $(top_builddir)/$(SELFTEST_DIR_RO)
+	$(LIBTOOL) --mode=execute $(builddir)/src/fty_lib_certificate_selftest -v -t libcert_public_key
+	$(MAKE) check-empty-selftest-rw
+
+check-libcert_keys: src/fty_lib_certificate_selftest $(top_builddir)/$(SELFTEST_DIR_RW) $(top_builddir)/$(SELFTEST_DIR_RO)
+	$(LIBTOOL) --mode=execute $(builddir)/src/fty_lib_certificate_selftest -t libcert_keys
+	$(MAKE) check-empty-selftest-rw
+check-libcert_keys-verbose: src/fty_lib_certificate_selftest $(top_builddir)/$(SELFTEST_DIR_RW) $(top_builddir)/$(SELFTEST_DIR_RO)
+	$(LIBTOOL) --mode=execute $(builddir)/src/fty_lib_certificate_selftest -v -t libcert_keys
+	$(MAKE) check-empty-selftest-rw
+
+check-libcert_certificate_config: src/fty_lib_certificate_selftest $(top_builddir)/$(SELFTEST_DIR_RW) $(top_builddir)/$(SELFTEST_DIR_RO)
+	$(LIBTOOL) --mode=execute $(builddir)/src/fty_lib_certificate_selftest -t libcert_certificate_config
+	$(MAKE) check-empty-selftest-rw
+check-libcert_certificate_config-verbose: src/fty_lib_certificate_selftest $(top_builddir)/$(SELFTEST_DIR_RW) $(top_builddir)/$(SELFTEST_DIR_RO)
+	$(LIBTOOL) --mode=execute $(builddir)/src/fty_lib_certificate_selftest -v -t libcert_certificate_config
+	$(MAKE) check-empty-selftest-rw
+
+check-libcert_csr_x509: src/fty_lib_certificate_selftest $(top_builddir)/$(SELFTEST_DIR_RW) $(top_builddir)/$(SELFTEST_DIR_RO)
+	$(LIBTOOL) --mode=execute $(builddir)/src/fty_lib_certificate_selftest -t libcert_csr_x509
+	$(MAKE) check-empty-selftest-rw
+check-libcert_csr_x509-verbose: src/fty_lib_certificate_selftest $(top_builddir)/$(SELFTEST_DIR_RW) $(top_builddir)/$(SELFTEST_DIR_RO)
+	$(LIBTOOL) --mode=execute $(builddir)/src/fty_lib_certificate_selftest -v -t libcert_csr_x509
+	$(MAKE) check-empty-selftest-rw
+
+check-libcert_openssl_wrapper: src/fty_lib_certificate_selftest $(top_builddir)/$(SELFTEST_DIR_RW) $(top_builddir)/$(SELFTEST_DIR_RO)
+	$(LIBTOOL) --mode=execute $(builddir)/src/fty_lib_certificate_selftest -t libcert_openssl_wrapper
+	$(MAKE) check-empty-selftest-rw
+check-libcert_openssl_wrapper-verbose: src/fty_lib_certificate_selftest $(top_builddir)/$(SELFTEST_DIR_RW) $(top_builddir)/$(SELFTEST_DIR_RO)
+	$(LIBTOOL) --mode=execute $(builddir)/src/fty_lib_certificate_selftest -v -t libcert_openssl_wrapper
+	$(MAKE) check-empty-selftest-rw
+
+check-libcert_crypto: src/fty_lib_certificate_selftest $(top_builddir)/$(SELFTEST_DIR_RW) $(top_builddir)/$(SELFTEST_DIR_RO)
+	$(LIBTOOL) --mode=execute $(builddir)/src/fty_lib_certificate_selftest -t libcert_crypto
+	$(MAKE) check-empty-selftest-rw
+check-libcert_crypto-verbose: src/fty_lib_certificate_selftest $(top_builddir)/$(SELFTEST_DIR_RW) $(top_builddir)/$(SELFTEST_DIR_RO)
+	$(LIBTOOL) --mode=execute $(builddir)/src/fty_lib_certificate_selftest -v -t libcert_crypto
+	$(MAKE) check-empty-selftest-rw
+
+
 # Run the selftest binary under valgrind to check for memory leaks
 memcheck: src/fty_lib_certificate_selftest $(top_builddir)/$(SELFTEST_DIR_RW) $(top_builddir)/$(SELFTEST_DIR_RO)
 	$(LIBTOOL) --mode=execute valgrind --tool=memcheck \
@@ -158,6 +215,119 @@ memcheck-verbose: src/fty_lib_certificate_selftest $(top_builddir)/$(SELFTEST_DI
 		$(builddir)/src/fty_lib_certificate_selftest -v
 	$(MAKE) check-empty-selftest-rw
 
+memcheck-libcert_pem_exportable: src/fty_lib_certificate_selftest $(top_builddir)/$(SELFTEST_DIR_RW) $(top_builddir)/$(SELFTEST_DIR_RO)
+	$(LIBTOOL) --mode=execute valgrind --tool=memcheck \
+		--leak-check=full --show-reachable=yes --error-exitcode=1 \
+		--suppressions=$(srcdir)/src/.valgrind.supp \
+		$(VALGRIND_OPTIONS) \
+		$(builddir)/src/fty_lib_certificate_selftest -t libcert_pem_exportable
+	$(MAKE) check-empty-selftest-rw
+memcheck-libcert_pem_exportable-verbose: src/fty_lib_certificate_selftest $(top_builddir)/$(SELFTEST_DIR_RW) $(top_builddir)/$(SELFTEST_DIR_RO)
+	$(LIBTOOL) --mode=execute valgrind --tool=memcheck \
+		--leak-check=full --show-reachable=yes --error-exitcode=1 \
+		--suppressions=$(srcdir)/src/.valgrind.supp \
+		$(VALGRIND_OPTIONS) \
+		$(builddir)/src/fty_lib_certificate_selftest -v -t libcert_pem_exportable
+	$(MAKE) check-empty-selftest-rw
+memcheck-libcert_certificate_x509: src/fty_lib_certificate_selftest $(top_builddir)/$(SELFTEST_DIR_RW) $(top_builddir)/$(SELFTEST_DIR_RO)
+	$(LIBTOOL) --mode=execute valgrind --tool=memcheck \
+		--leak-check=full --show-reachable=yes --error-exitcode=1 \
+		--suppressions=$(srcdir)/src/.valgrind.supp \
+		$(VALGRIND_OPTIONS) \
+		$(builddir)/src/fty_lib_certificate_selftest -t libcert_certificate_x509
+	$(MAKE) check-empty-selftest-rw
+memcheck-libcert_certificate_x509-verbose: src/fty_lib_certificate_selftest $(top_builddir)/$(SELFTEST_DIR_RW) $(top_builddir)/$(SELFTEST_DIR_RO)
+	$(LIBTOOL) --mode=execute valgrind --tool=memcheck \
+		--leak-check=full --show-reachable=yes --error-exitcode=1 \
+		--suppressions=$(srcdir)/src/.valgrind.supp \
+		$(VALGRIND_OPTIONS) \
+		$(builddir)/src/fty_lib_certificate_selftest -v -t libcert_certificate_x509
+	$(MAKE) check-empty-selftest-rw
+memcheck-libcert_public_key: src/fty_lib_certificate_selftest $(top_builddir)/$(SELFTEST_DIR_RW) $(top_builddir)/$(SELFTEST_DIR_RO)
+	$(LIBTOOL) --mode=execute valgrind --tool=memcheck \
+		--leak-check=full --show-reachable=yes --error-exitcode=1 \
+		--suppressions=$(srcdir)/src/.valgrind.supp \
+		$(VALGRIND_OPTIONS) \
+		$(builddir)/src/fty_lib_certificate_selftest -t libcert_public_key
+	$(MAKE) check-empty-selftest-rw
+memcheck-libcert_public_key-verbose: src/fty_lib_certificate_selftest $(top_builddir)/$(SELFTEST_DIR_RW) $(top_builddir)/$(SELFTEST_DIR_RO)
+	$(LIBTOOL) --mode=execute valgrind --tool=memcheck \
+		--leak-check=full --show-reachable=yes --error-exitcode=1 \
+		--suppressions=$(srcdir)/src/.valgrind.supp \
+		$(VALGRIND_OPTIONS) \
+		$(builddir)/src/fty_lib_certificate_selftest -v -t libcert_public_key
+	$(MAKE) check-empty-selftest-rw
+memcheck-libcert_keys: src/fty_lib_certificate_selftest $(top_builddir)/$(SELFTEST_DIR_RW) $(top_builddir)/$(SELFTEST_DIR_RO)
+	$(LIBTOOL) --mode=execute valgrind --tool=memcheck \
+		--leak-check=full --show-reachable=yes --error-exitcode=1 \
+		--suppressions=$(srcdir)/src/.valgrind.supp \
+		$(VALGRIND_OPTIONS) \
+		$(builddir)/src/fty_lib_certificate_selftest -t libcert_keys
+	$(MAKE) check-empty-selftest-rw
+memcheck-libcert_keys-verbose: src/fty_lib_certificate_selftest $(top_builddir)/$(SELFTEST_DIR_RW) $(top_builddir)/$(SELFTEST_DIR_RO)
+	$(LIBTOOL) --mode=execute valgrind --tool=memcheck \
+		--leak-check=full --show-reachable=yes --error-exitcode=1 \
+		--suppressions=$(srcdir)/src/.valgrind.supp \
+		$(VALGRIND_OPTIONS) \
+		$(builddir)/src/fty_lib_certificate_selftest -v -t libcert_keys
+	$(MAKE) check-empty-selftest-rw
+memcheck-libcert_certificate_config: src/fty_lib_certificate_selftest $(top_builddir)/$(SELFTEST_DIR_RW) $(top_builddir)/$(SELFTEST_DIR_RO)
+	$(LIBTOOL) --mode=execute valgrind --tool=memcheck \
+		--leak-check=full --show-reachable=yes --error-exitcode=1 \
+		--suppressions=$(srcdir)/src/.valgrind.supp \
+		$(VALGRIND_OPTIONS) \
+		$(builddir)/src/fty_lib_certificate_selftest -t libcert_certificate_config
+	$(MAKE) check-empty-selftest-rw
+memcheck-libcert_certificate_config-verbose: src/fty_lib_certificate_selftest $(top_builddir)/$(SELFTEST_DIR_RW) $(top_builddir)/$(SELFTEST_DIR_RO)
+	$(LIBTOOL) --mode=execute valgrind --tool=memcheck \
+		--leak-check=full --show-reachable=yes --error-exitcode=1 \
+		--suppressions=$(srcdir)/src/.valgrind.supp \
+		$(VALGRIND_OPTIONS) \
+		$(builddir)/src/fty_lib_certificate_selftest -v -t libcert_certificate_config
+	$(MAKE) check-empty-selftest-rw
+memcheck-libcert_csr_x509: src/fty_lib_certificate_selftest $(top_builddir)/$(SELFTEST_DIR_RW) $(top_builddir)/$(SELFTEST_DIR_RO)
+	$(LIBTOOL) --mode=execute valgrind --tool=memcheck \
+		--leak-check=full --show-reachable=yes --error-exitcode=1 \
+		--suppressions=$(srcdir)/src/.valgrind.supp \
+		$(VALGRIND_OPTIONS) \
+		$(builddir)/src/fty_lib_certificate_selftest -t libcert_csr_x509
+	$(MAKE) check-empty-selftest-rw
+memcheck-libcert_csr_x509-verbose: src/fty_lib_certificate_selftest $(top_builddir)/$(SELFTEST_DIR_RW) $(top_builddir)/$(SELFTEST_DIR_RO)
+	$(LIBTOOL) --mode=execute valgrind --tool=memcheck \
+		--leak-check=full --show-reachable=yes --error-exitcode=1 \
+		--suppressions=$(srcdir)/src/.valgrind.supp \
+		$(VALGRIND_OPTIONS) \
+		$(builddir)/src/fty_lib_certificate_selftest -v -t libcert_csr_x509
+	$(MAKE) check-empty-selftest-rw
+memcheck-libcert_openssl_wrapper: src/fty_lib_certificate_selftest $(top_builddir)/$(SELFTEST_DIR_RW) $(top_builddir)/$(SELFTEST_DIR_RO)
+	$(LIBTOOL) --mode=execute valgrind --tool=memcheck \
+		--leak-check=full --show-reachable=yes --error-exitcode=1 \
+		--suppressions=$(srcdir)/src/.valgrind.supp \
+		$(VALGRIND_OPTIONS) \
+		$(builddir)/src/fty_lib_certificate_selftest -t libcert_openssl_wrapper
+	$(MAKE) check-empty-selftest-rw
+memcheck-libcert_openssl_wrapper-verbose: src/fty_lib_certificate_selftest $(top_builddir)/$(SELFTEST_DIR_RW) $(top_builddir)/$(SELFTEST_DIR_RO)
+	$(LIBTOOL) --mode=execute valgrind --tool=memcheck \
+		--leak-check=full --show-reachable=yes --error-exitcode=1 \
+		--suppressions=$(srcdir)/src/.valgrind.supp \
+		$(VALGRIND_OPTIONS) \
+		$(builddir)/src/fty_lib_certificate_selftest -v -t libcert_openssl_wrapper
+	$(MAKE) check-empty-selftest-rw
+memcheck-libcert_crypto: src/fty_lib_certificate_selftest $(top_builddir)/$(SELFTEST_DIR_RW) $(top_builddir)/$(SELFTEST_DIR_RO)
+	$(LIBTOOL) --mode=execute valgrind --tool=memcheck \
+		--leak-check=full --show-reachable=yes --error-exitcode=1 \
+		--suppressions=$(srcdir)/src/.valgrind.supp \
+		$(VALGRIND_OPTIONS) \
+		$(builddir)/src/fty_lib_certificate_selftest -t libcert_crypto
+	$(MAKE) check-empty-selftest-rw
+memcheck-libcert_crypto-verbose: src/fty_lib_certificate_selftest $(top_builddir)/$(SELFTEST_DIR_RW) $(top_builddir)/$(SELFTEST_DIR_RO)
+	$(LIBTOOL) --mode=execute valgrind --tool=memcheck \
+		--leak-check=full --show-reachable=yes --error-exitcode=1 \
+		--suppressions=$(srcdir)/src/.valgrind.supp \
+		$(VALGRIND_OPTIONS) \
+		$(builddir)/src/fty_lib_certificate_selftest -v -t libcert_crypto
+	$(MAKE) check-empty-selftest-rw
+
 # Run the selftest binary under valgrind to check for performance leaks
 callcheck: src/fty_lib_certificate_selftest $(top_builddir)/$(SELFTEST_DIR_RW) $(top_builddir)/$(SELFTEST_DIR_RO)
 	$(LIBTOOL) --mode=execute valgrind --tool=callgrind \
@@ -171,6 +341,87 @@ callcheck-verbose: src/fty_lib_certificate_selftest $(top_builddir)/$(SELFTEST_D
 		$(builddir)/src/fty_lib_certificate_selftest -v
 	$(MAKE) check-empty-selftest-rw
 
+callcheck-libcert_pem_exportable: src/fty_lib_certificate_selftest $(top_builddir)/$(SELFTEST_DIR_RW) $(top_builddir)/$(SELFTEST_DIR_RO)
+	$(LIBTOOL) --mode=execute valgrind --tool=callgrind \
+		$(VALGRIND_OPTIONS) \
+		$(builddir)/src/fty_lib_certificate_selftest -t libcert_pem_exportable
+	$(MAKE) check-empty-selftest-rw
+callcheck-libcert_pem_exportable-verbose: src/fty_lib_certificate_selftest $(top_builddir)/$(SELFTEST_DIR_RW) $(top_builddir)/$(SELFTEST_DIR_RO)
+	$(LIBTOOL) --mode=execute valgrind --tool=callgrind \
+		$(VALGRIND_OPTIONS) \
+		$(builddir)/src/fty_lib_certificate_selftest -v -t libcert_pem_exportable
+	$(MAKE) check-empty-selftest-rw
+callcheck-libcert_certificate_x509: src/fty_lib_certificate_selftest $(top_builddir)/$(SELFTEST_DIR_RW) $(top_builddir)/$(SELFTEST_DIR_RO)
+	$(LIBTOOL) --mode=execute valgrind --tool=callgrind \
+		$(VALGRIND_OPTIONS) \
+		$(builddir)/src/fty_lib_certificate_selftest -t libcert_certificate_x509
+	$(MAKE) check-empty-selftest-rw
+callcheck-libcert_certificate_x509-verbose: src/fty_lib_certificate_selftest $(top_builddir)/$(SELFTEST_DIR_RW) $(top_builddir)/$(SELFTEST_DIR_RO)
+	$(LIBTOOL) --mode=execute valgrind --tool=callgrind \
+		$(VALGRIND_OPTIONS) \
+		$(builddir)/src/fty_lib_certificate_selftest -v -t libcert_certificate_x509
+	$(MAKE) check-empty-selftest-rw
+callcheck-libcert_public_key: src/fty_lib_certificate_selftest $(top_builddir)/$(SELFTEST_DIR_RW) $(top_builddir)/$(SELFTEST_DIR_RO)
+	$(LIBTOOL) --mode=execute valgrind --tool=callgrind \
+		$(VALGRIND_OPTIONS) \
+		$(builddir)/src/fty_lib_certificate_selftest -t libcert_public_key
+	$(MAKE) check-empty-selftest-rw
+callcheck-libcert_public_key-verbose: src/fty_lib_certificate_selftest $(top_builddir)/$(SELFTEST_DIR_RW) $(top_builddir)/$(SELFTEST_DIR_RO)
+	$(LIBTOOL) --mode=execute valgrind --tool=callgrind \
+		$(VALGRIND_OPTIONS) \
+		$(builddir)/src/fty_lib_certificate_selftest -v -t libcert_public_key
+	$(MAKE) check-empty-selftest-rw
+callcheck-libcert_keys: src/fty_lib_certificate_selftest $(top_builddir)/$(SELFTEST_DIR_RW) $(top_builddir)/$(SELFTEST_DIR_RO)
+	$(LIBTOOL) --mode=execute valgrind --tool=callgrind \
+		$(VALGRIND_OPTIONS) \
+		$(builddir)/src/fty_lib_certificate_selftest -t libcert_keys
+	$(MAKE) check-empty-selftest-rw
+callcheck-libcert_keys-verbose: src/fty_lib_certificate_selftest $(top_builddir)/$(SELFTEST_DIR_RW) $(top_builddir)/$(SELFTEST_DIR_RO)
+	$(LIBTOOL) --mode=execute valgrind --tool=callgrind \
+		$(VALGRIND_OPTIONS) \
+		$(builddir)/src/fty_lib_certificate_selftest -v -t libcert_keys
+	$(MAKE) check-empty-selftest-rw
+callcheck-libcert_certificate_config: src/fty_lib_certificate_selftest $(top_builddir)/$(SELFTEST_DIR_RW) $(top_builddir)/$(SELFTEST_DIR_RO)
+	$(LIBTOOL) --mode=execute valgrind --tool=callgrind \
+		$(VALGRIND_OPTIONS) \
+		$(builddir)/src/fty_lib_certificate_selftest -t libcert_certificate_config
+	$(MAKE) check-empty-selftest-rw
+callcheck-libcert_certificate_config-verbose: src/fty_lib_certificate_selftest $(top_builddir)/$(SELFTEST_DIR_RW) $(top_builddir)/$(SELFTEST_DIR_RO)
+	$(LIBTOOL) --mode=execute valgrind --tool=callgrind \
+		$(VALGRIND_OPTIONS) \
+		$(builddir)/src/fty_lib_certificate_selftest -v -t libcert_certificate_config
+	$(MAKE) check-empty-selftest-rw
+callcheck-libcert_csr_x509: src/fty_lib_certificate_selftest $(top_builddir)/$(SELFTEST_DIR_RW) $(top_builddir)/$(SELFTEST_DIR_RO)
+	$(LIBTOOL) --mode=execute valgrind --tool=callgrind \
+		$(VALGRIND_OPTIONS) \
+		$(builddir)/src/fty_lib_certificate_selftest -t libcert_csr_x509
+	$(MAKE) check-empty-selftest-rw
+callcheck-libcert_csr_x509-verbose: src/fty_lib_certificate_selftest $(top_builddir)/$(SELFTEST_DIR_RW) $(top_builddir)/$(SELFTEST_DIR_RO)
+	$(LIBTOOL) --mode=execute valgrind --tool=callgrind \
+		$(VALGRIND_OPTIONS) \
+		$(builddir)/src/fty_lib_certificate_selftest -v -t libcert_csr_x509
+	$(MAKE) check-empty-selftest-rw
+callcheck-libcert_openssl_wrapper: src/fty_lib_certificate_selftest $(top_builddir)/$(SELFTEST_DIR_RW) $(top_builddir)/$(SELFTEST_DIR_RO)
+	$(LIBTOOL) --mode=execute valgrind --tool=callgrind \
+		$(VALGRIND_OPTIONS) \
+		$(builddir)/src/fty_lib_certificate_selftest -t libcert_openssl_wrapper
+	$(MAKE) check-empty-selftest-rw
+callcheck-libcert_openssl_wrapper-verbose: src/fty_lib_certificate_selftest $(top_builddir)/$(SELFTEST_DIR_RW) $(top_builddir)/$(SELFTEST_DIR_RO)
+	$(LIBTOOL) --mode=execute valgrind --tool=callgrind \
+		$(VALGRIND_OPTIONS) \
+		$(builddir)/src/fty_lib_certificate_selftest -v -t libcert_openssl_wrapper
+	$(MAKE) check-empty-selftest-rw
+callcheck-libcert_crypto: src/fty_lib_certificate_selftest $(top_builddir)/$(SELFTEST_DIR_RW) $(top_builddir)/$(SELFTEST_DIR_RO)
+	$(LIBTOOL) --mode=execute valgrind --tool=callgrind \
+		$(VALGRIND_OPTIONS) \
+		$(builddir)/src/fty_lib_certificate_selftest -t libcert_crypto
+	$(MAKE) check-empty-selftest-rw
+callcheck-libcert_crypto-verbose: src/fty_lib_certificate_selftest $(top_builddir)/$(SELFTEST_DIR_RW) $(top_builddir)/$(SELFTEST_DIR_RO)
+	$(LIBTOOL) --mode=execute valgrind --tool=callgrind \
+		$(VALGRIND_OPTIONS) \
+		$(builddir)/src/fty_lib_certificate_selftest -v -t libcert_crypto
+	$(MAKE) check-empty-selftest-rw
+
 # Run the selftest binary under gdb for debugging
 debug: src/fty_lib_certificate_selftest $(top_builddir)/$(SELFTEST_DIR_RW) $(top_builddir)/$(SELFTEST_DIR_RO)
 	$(LIBTOOL) --mode=execute gdb -q \
@@ -179,7 +430,72 @@ debug: src/fty_lib_certificate_selftest $(top_builddir)/$(SELFTEST_DIR_RW) $(top
 
 debug-verbose: src/fty_lib_certificate_selftest $(top_builddir)/$(SELFTEST_DIR_RW) $(top_builddir)/$(SELFTEST_DIR_RO)
 	$(LIBTOOL) --mode=execute gdb -q \
-		$(builddir)/src/fty_lib_certificate_selftest -v
+		--args $(builddir)/src/fty_lib_certificate_selftest -v
+	$(MAKE) check-empty-selftest-rw
+
+debug-libcert_pem_exportable: src/fty_lib_certificate_selftest $(top_builddir)/$(SELFTEST_DIR_RW) $(top_builddir)/$(SELFTEST_DIR_RO)
+	$(LIBTOOL) --mode=execute gdb -q \
+		--args $(builddir)/src/fty_lib_certificate_selftest -t libcert_pem_exportable
+	$(MAKE) check-empty-selftest-rw
+debug-libcert_pem_exportable-verbose: src/fty_lib_certificate_selftest $(top_builddir)/$(SELFTEST_DIR_RW) $(top_builddir)/$(SELFTEST_DIR_RO)
+	$(LIBTOOL) --mode=execute gdb -q \
+		--args $(builddir)/src/fty_lib_certificate_selftest -v -t libcert_pem_exportable
+	$(MAKE) check-empty-selftest-rw
+debug-libcert_certificate_x509: src/fty_lib_certificate_selftest $(top_builddir)/$(SELFTEST_DIR_RW) $(top_builddir)/$(SELFTEST_DIR_RO)
+	$(LIBTOOL) --mode=execute gdb -q \
+		--args $(builddir)/src/fty_lib_certificate_selftest -t libcert_certificate_x509
+	$(MAKE) check-empty-selftest-rw
+debug-libcert_certificate_x509-verbose: src/fty_lib_certificate_selftest $(top_builddir)/$(SELFTEST_DIR_RW) $(top_builddir)/$(SELFTEST_DIR_RO)
+	$(LIBTOOL) --mode=execute gdb -q \
+		--args $(builddir)/src/fty_lib_certificate_selftest -v -t libcert_certificate_x509
+	$(MAKE) check-empty-selftest-rw
+debug-libcert_public_key: src/fty_lib_certificate_selftest $(top_builddir)/$(SELFTEST_DIR_RW) $(top_builddir)/$(SELFTEST_DIR_RO)
+	$(LIBTOOL) --mode=execute gdb -q \
+		--args $(builddir)/src/fty_lib_certificate_selftest -t libcert_public_key
+	$(MAKE) check-empty-selftest-rw
+debug-libcert_public_key-verbose: src/fty_lib_certificate_selftest $(top_builddir)/$(SELFTEST_DIR_RW) $(top_builddir)/$(SELFTEST_DIR_RO)
+	$(LIBTOOL) --mode=execute gdb -q \
+		--args $(builddir)/src/fty_lib_certificate_selftest -v -t libcert_public_key
+	$(MAKE) check-empty-selftest-rw
+debug-libcert_keys: src/fty_lib_certificate_selftest $(top_builddir)/$(SELFTEST_DIR_RW) $(top_builddir)/$(SELFTEST_DIR_RO)
+	$(LIBTOOL) --mode=execute gdb -q \
+		--args $(builddir)/src/fty_lib_certificate_selftest -t libcert_keys
+	$(MAKE) check-empty-selftest-rw
+debug-libcert_keys-verbose: src/fty_lib_certificate_selftest $(top_builddir)/$(SELFTEST_DIR_RW) $(top_builddir)/$(SELFTEST_DIR_RO)
+	$(LIBTOOL) --mode=execute gdb -q \
+		--args $(builddir)/src/fty_lib_certificate_selftest -v -t libcert_keys
+	$(MAKE) check-empty-selftest-rw
+debug-libcert_certificate_config: src/fty_lib_certificate_selftest $(top_builddir)/$(SELFTEST_DIR_RW) $(top_builddir)/$(SELFTEST_DIR_RO)
+	$(LIBTOOL) --mode=execute gdb -q \
+		--args $(builddir)/src/fty_lib_certificate_selftest -t libcert_certificate_config
+	$(MAKE) check-empty-selftest-rw
+debug-libcert_certificate_config-verbose: src/fty_lib_certificate_selftest $(top_builddir)/$(SELFTEST_DIR_RW) $(top_builddir)/$(SELFTEST_DIR_RO)
+	$(LIBTOOL) --mode=execute gdb -q \
+		--args $(builddir)/src/fty_lib_certificate_selftest -v -t libcert_certificate_config
+	$(MAKE) check-empty-selftest-rw
+debug-libcert_csr_x509: src/fty_lib_certificate_selftest $(top_builddir)/$(SELFTEST_DIR_RW) $(top_builddir)/$(SELFTEST_DIR_RO)
+	$(LIBTOOL) --mode=execute gdb -q \
+		--args $(builddir)/src/fty_lib_certificate_selftest -t libcert_csr_x509
+	$(MAKE) check-empty-selftest-rw
+debug-libcert_csr_x509-verbose: src/fty_lib_certificate_selftest $(top_builddir)/$(SELFTEST_DIR_RW) $(top_builddir)/$(SELFTEST_DIR_RO)
+	$(LIBTOOL) --mode=execute gdb -q \
+		--args $(builddir)/src/fty_lib_certificate_selftest -v -t libcert_csr_x509
+	$(MAKE) check-empty-selftest-rw
+debug-libcert_openssl_wrapper: src/fty_lib_certificate_selftest $(top_builddir)/$(SELFTEST_DIR_RW) $(top_builddir)/$(SELFTEST_DIR_RO)
+	$(LIBTOOL) --mode=execute gdb -q \
+		--args $(builddir)/src/fty_lib_certificate_selftest -t libcert_openssl_wrapper
+	$(MAKE) check-empty-selftest-rw
+debug-libcert_openssl_wrapper-verbose: src/fty_lib_certificate_selftest $(top_builddir)/$(SELFTEST_DIR_RW) $(top_builddir)/$(SELFTEST_DIR_RO)
+	$(LIBTOOL) --mode=execute gdb -q \
+		--args $(builddir)/src/fty_lib_certificate_selftest -v -t libcert_openssl_wrapper
+	$(MAKE) check-empty-selftest-rw
+debug-libcert_crypto: src/fty_lib_certificate_selftest $(top_builddir)/$(SELFTEST_DIR_RW) $(top_builddir)/$(SELFTEST_DIR_RO)
+	$(LIBTOOL) --mode=execute gdb -q \
+		--args $(builddir)/src/fty_lib_certificate_selftest -t libcert_crypto
+	$(MAKE) check-empty-selftest-rw
+debug-libcert_crypto-verbose: src/fty_lib_certificate_selftest $(top_builddir)/$(SELFTEST_DIR_RW) $(top_builddir)/$(SELFTEST_DIR_RO)
+	$(LIBTOOL) --mode=execute gdb -q \
+		--args $(builddir)/src/fty_lib_certificate_selftest -v -t libcert_crypto
 	$(MAKE) check-empty-selftest-rw
 
 # Run the selftest binary with verbose switch for tracing

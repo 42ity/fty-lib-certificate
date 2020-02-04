@@ -1,5 +1,5 @@
 /*  =========================================================================
-    fty_lib_certificate_library - generated layer of public API
+    fty-lib-certificate - generated layer of public API
 
     Copyright (C) 2019 - 2020 Eaton
 
