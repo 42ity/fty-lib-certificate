@@ -1,6 +1,9 @@
 /*  =========================================================================
     fty_lib_certificate_private_selftest.c - run private classes selftests
 
+    Runs all private classes selftests.
+
+    -------------------------------------------------------------------------
     Copyright (C) 2019 - 2020 Eaton
 
     This program is free software; you can redistribute it and/or modify
