@@ -31,10 +31,11 @@
 #include <memory>
 #include <sstream>
 #include <iostream>
+#include <regex>
 
 namespace fty
 {
-    static unsigned int PASS_PHRASE_MIN_LENGTH = 8;
+    static constexpr const char* PASS_PHRASE_FORMAT_REGEX = ".{8,}";
     
     std::string encrypt(const std::string & plainData, const std::string & passphrase)
     {
@@ -82,19 +83,16 @@ namespace fty
 
     }
   
-    bool checkPassphraseFormat(const std::string& phassphrase)
+    bool checkPassphraseFormat(const std::string& passphrase)
     {
-        bool returnValue = false;
-        if (!phassphrase.empty() && phassphrase.size() >= PASS_PHRASE_MIN_LENGTH)
-        {
-            returnValue = true;
-        }
-        return returnValue;
+        std::regex reg(PASS_PHRASE_FORMAT_REGEX);
+
+        return !passphrase.empty() && std::regex_search(passphrase, reg);
     }
     
     std::string getPassphraseFormat()
     {
-        return std::to_string(PASS_PHRASE_MIN_LENGTH);
+        return std::string(PASS_PHRASE_FORMAT_REGEX);
     }
 
 } //namespace fty
