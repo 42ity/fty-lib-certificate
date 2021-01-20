@@ -33,6 +33,7 @@
 #include <cstdio>
 #include <cstring>
 #include <memory>
+#include <stdexcept>
 
 #include <openssl/bio.h>
 #include <openssl/buffer.h>
@@ -128,7 +129,7 @@ namespace fty
       // Build the returned vector
       ByteField digest(EVP_MAX_MD_SIZE);
       unsigned int digestSize = 0;
-      
+
       // Compute the digest
       EVP_MD_CTX * md5ctx = EVP_MD_CTX_create();
       EVP_DigestInit_ex(md5ctx, pEvpMd, NULL);
@@ -174,13 +175,13 @@ namespace fty
       * IV size for *most* modes is the same as the block size. For AES this
       * is 128 bits */
       EVP_EncryptInit_ex(ctx, EVP_aes_256_cbc(), NULL, &key[0], &iv[0]);
-      
+
       /* Provide the message to be encrypted, and obtain the encrypted output.
       * EVP_EncryptUpdate can be called multiple times if necessary
       */
       EVP_EncryptUpdate(ctx, &cipherData[0], &len, &data[0], data.size());
       cipherDataLen = len;
-      
+
       /* Finalise the encryption. Further cipherData bytes may be written at
       * this stage.
       */
@@ -217,7 +218,7 @@ namespace fty
 
       int len;
       size_t plainDataLen;
-      
+
       /* Initialise the decryption operation. IMPORTANT - ensure you use a key
       * and IV size appropriate for your cipher
       * In this example we are using 256 bit AES (i.e. a 256 bit key). The
