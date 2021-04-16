@@ -34,6 +34,10 @@ etn_target(static ${PROJECT_NAME}-static
 etn_test_target(${PROJECT_NAME}-static
     SOURCES
         test/main.cpp
+        test/libcert_certificate_X509.cpp
+        test/libcert_public_key.cpp 
+        test/libcert_keys.cpp
+        test/libcert_csr_X509.cpp
     USES
         ${PROJECT_NAME}-static
         openssl
