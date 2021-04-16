@@ -27,7 +27,7 @@
 #define FTY_LIB_CERTIFICATE_CLASSES_H_INCLUDED
 
 //  Platform definitions, must come first
-#include "platform.h"
+// #include "platform.h"
 
 //  External API
 #include "../include/fty-lib-certificate.h"

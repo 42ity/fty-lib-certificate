@@ -27,42 +27,41 @@
 */
 
 #include "fty_lib_certificate_classes.h"
-
-#include <stdexcept>
-#include <sstream>
-#include <openssl/ssl.h>
 #include <openssl/pem.h>
+#include <openssl/ssl.h>
+#include <sstream>
+#include <stdexcept>
 
-namespace fty
+namespace fty {
+PublicKey::PublicKey(EVP_PKEY* key)
 {
-    PublicKey::PublicKey(EVP_PKEY * key)
-    {
-        if(key == NULL) throw std::runtime_error("Impossible to create the public key");
-        m_evpPkey = key;
-    }
+    if (key == NULL)
+        throw std::runtime_error("Impossible to create the public key");
+    m_evpPkey = key;
+}
 
-    PublicKey::~PublicKey()
-    {
-        EVP_PKEY_free(m_evpPkey);
-    }
-        
-    std::string PublicKey::getPem() const
-    {
-        BIO * bioOut = BIO_new(BIO_s_mem());
-        std::string pem;
-        
-        PEM_write_bio_PUBKEY(bioOut, m_evpPkey);
+PublicKey::~PublicKey()
+{
+    EVP_PKEY_free(m_evpPkey);
+}
 
-        BUF_MEM *bioBuffer;
-        BIO_get_mem_ptr(bioOut, &bioBuffer);
-        pem = std::string(bioBuffer->data, bioBuffer->length);
+std::string PublicKey::getPem() const
+{
+    BIO*        bioOut = BIO_new(BIO_s_mem());
+    std::string pem;
 
-        BIO_free(bioOut);
+    PEM_write_bio_PUBKEY(bioOut, m_evpPkey);
 
-        return pem;
-    }
+    BUF_MEM* bioBuffer;
+    BIO_get_mem_ptr(bioOut, &bioBuffer);
+    pem = std::string(bioBuffer->data, bioBuffer->length);
 
-} //namespace fty
+    BIO_free(bioOut);
+
+    return pem;
+}
+
+} // namespace fty
 
 
 //  --------------------------------------------------------------------------
@@ -81,14 +80,13 @@ namespace fty
 #define SELFTEST_DIR_RO "src/selftest-ro"
 #define SELFTEST_DIR_RW "src/selftest-rw"
 
-void
-libcert_public_key_test (bool verbose)
+void libcert_public_key_test(bool /* verbose */)
 {
-    printf (" * libcert_public_key: ");
+    printf(" * libcert_public_key: ");
 
     //  @selftest
     //  Simple create/destroy test
 
     //  @end
-    printf ("OK\n");
+    printf("OK\n");
 }

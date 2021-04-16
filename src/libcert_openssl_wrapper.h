@@ -48,7 +48,7 @@ namespace fty
 
     //base64 tools
     std::string base64Encode(const ByteField & data);
-    ByteField base64Decode(const std::string & encodedData, size_t off, size_t count = -1);
+    ByteField base64Decode(const std::string & encodedData, size_t off, size_t count = SIZE_MAX);
 
     //digests
     ByteField generateMD5Digest(const ByteField & data);
