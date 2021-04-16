@@ -26,7 +26,8 @@
 @end
 */
 
-#include "fty_lib_certificate_classes.h"
+// #include "fty_lib_certificate_classes.h"
+#include "libcert_keys.h"
 #include <openssl/pem.h>
 #include <openssl/ssl.h>
 #include <sstream>

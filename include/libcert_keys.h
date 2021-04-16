@@ -19,56 +19,48 @@
     =========================================================================
 */
 
-#ifndef LIBCERT_KEYS_H_INCLUDED
-#define LIBCERT_KEYS_H_INCLUDED
-
-#include <string>
-#include <openssl/x509.h>
-
+#pragma once
 #include "libcert_pem_exportable.h"
 #include "libcert_public_key.h"
+#include <openssl/x509.h>
+#include <string>
 
-namespace fty
+namespace fty {
+// EC curve types
+enum ECKeyType
 {
-    // EC curve types
-    enum ECKeyType
-    {
-        PRIME256V1 = NID_X9_62_prime256v1
-    };
+    PRIME256V1 = NID_X9_62_prime256v1
+};
 
-    class CertificateX509;
-    class CsrX509;
+class CertificateX509;
+class CsrX509;
 
-    //note: A private key containe also the public key matching with it.
-    class Keys : public PemExportable
-    {
-    public:
-        Keys(const std::string & privateKeyPem);
-        Keys (const Keys & key);
-        ~Keys();
+// note: A private key containe also the public key matching with it.
+class Keys : public PemExportable
+{
+public:
+    Keys(const std::string& privateKeyPem);
+    Keys(const Keys& key);
+    ~Keys();
 
-        std::string getPem() const override;
-        PublicKey getPublicKey() const;
+    std::string getPem() const override;
+    PublicKey   getPublicKey() const;
 
-        //class methods
-        static  Keys generateRSA(int bits);
-        static  Keys generateEC(ECKeyType keyType);
+    // class methods
+    static Keys generateRSA(int bits);
+    static Keys generateEC(ECKeyType keyType);
 
-    private:
-        Keys(EVP_PKEY * evpPkey);   // private copy ctor
-        void importPem(const std::string & privateKeyPem);
+private:
+    Keys(EVP_PKEY* evpPkey); // private copy ctor
+    void importPem(const std::string& privateKeyPem);
 
-        EVP_PKEY * m_evpPkey = NULL;
-    
+    EVP_PKEY* m_evpPkey = NULL;
+
     friend class CertificateX509;
     friend class CsrX509;
-    };
+};
 
 } // namespace fty
 
 //  Self test of this class
-void libcert_keys_test (bool verbose);
-
-
-
-#endif
+void libcert_keys_test(bool verbose);

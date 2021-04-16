@@ -26,7 +26,9 @@
 @end
 */
 
-#include "fty_lib_certificate_classes.h"
+#include "libcert_csr_X509.h"
+#include "libcert_keys.h"
+#include <assert.h>
 #include <chrono>
 #include <list>
 #include <openssl/pem.h>

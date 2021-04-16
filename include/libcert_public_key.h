@@ -19,37 +19,33 @@
     =========================================================================
 */
 
-#ifndef LIBCERT_PUBLIC_KEY_H_INCLUDED
-#define LIBCERT_PUBLIC_KEY_H_INCLUDED
-
-#include <string>
-#include <openssl/evp.h>
+#pragma once
 
 #include "libcert_pem_exportable.h"
+#include <openssl/evp.h>
+#include <string>
 
-namespace fty
+namespace fty {
+class CertificateX509;
+class Csr509;
+class Keys;
+
+class PublicKey : public PemExportable
 {
-    class CertificateX509;
-    class Csr509;
-    class Keys;
+public:
+    ~PublicKey();
 
-    class PublicKey : public PemExportable
-    {
-    public:
-        ~PublicKey();
+    std::string getPem() const override;
 
-        std::string getPem() const override;
-    private:
-        PublicKey(EVP_PKEY * key);
-        EVP_PKEY * m_evpPkey = NULL;
+private:
+    PublicKey(EVP_PKEY* key);
+    EVP_PKEY* m_evpPkey = NULL;
 
     friend class CertificateX509;
     friend class CsrX509;
     friend class Keys;
-    };
-}
+};
+} // namespace fty
 
 //  Self test of this class
-void libcert_public_key_test (bool verbose);
-
-#endif
+void libcert_public_key_test(bool verbose);

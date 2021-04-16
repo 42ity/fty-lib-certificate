@@ -26,7 +26,7 @@
 @end
 */
 
-#include "fty_lib_certificate_classes.h"
+#include "libcert_openssl_wrapper.h"
 #include <cstdio>
 #include <cstring>
 #include <memory>

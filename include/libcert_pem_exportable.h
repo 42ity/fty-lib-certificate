@@ -19,25 +19,28 @@
     =========================================================================
 */
 
-#ifndef LIBCERT_PEM_EXPORTABLE_H_INCLUDED
-#define LIBCERT_PEM_EXPORTABLE_H_INCLUDED
+#pragma once
 
 #include <string>
 
-namespace fty
+namespace fty {
+class PemExportable
 {
-    class PemExportable
-    {
-    public:
-        virtual ~PemExportable() = default;
-        virtual std::string getPem() const = 0;
-    protected:
-        PemExportable() = default;
-    };
+public:
+    virtual ~PemExportable()           = default;
+    virtual std::string getPem() const = 0;
 
-    inline bool operator==(const PemExportable& lhs, const PemExportable& rhs){ return (lhs.getPem() == rhs.getPem()); }
-    inline bool operator!=(const PemExportable& lhs, const PemExportable& rhs){ return !(lhs == rhs); }
+protected:
+    PemExportable() = default;
+};
+
+inline bool operator==(const PemExportable& lhs, const PemExportable& rhs)
+{
+    return (lhs.getPem() == rhs.getPem());
+}
+inline bool operator!=(const PemExportable& lhs, const PemExportable& rhs)
+{
+    return !(lhs == rhs);
+}
 
 } // namespace fty
-
-#endif

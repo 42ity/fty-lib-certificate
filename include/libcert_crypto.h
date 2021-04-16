@@ -19,41 +19,37 @@
     =========================================================================
 */
 
-#ifndef LIBCERT_CRYPTO_H_INCLUDED
-#define LIBCERT_CRYPTO_H_INCLUDED
+#pragma once
 
-namespace fty
-{
-    /**
-     * Encrypt a string
-     * @param plainData Plain Text Input
-     * @param passphrase Pass phrase
-     * @return The Plain text encrypted
-     */
-    std::string encrypt(const std::string& plainData, const std::string& passphrase);
+namespace fty {
+/**
+ * Encrypt a string
+ * @param plainData Plain Text Input
+ * @param passphrase Pass phrase
+ * @return The Plain text encrypted
+ */
+std::string encrypt(const std::string& plainData, const std::string& passphrase);
 
-    /**
-     * Decrypt a string
-     * @param encryptedData The encrypted data
-     * @param passphrase Pass phrase
-     * @return The Plain text decrypted
-     */
-    std::string decrypt(const std::string& encryptedData, const std::string& passphrase);
-  
-    /**
-     * Check pass phraseFormat
-     * @param phassphrase
-     * @return True if the passphrase is Ok, otherwise false. 
-     */
-    bool checkPassphraseFormat(const std::string& passphrase);
-    
-    /**
-     * Get passphrase format
-     * @param phassphrase
-     * @return The passphrase format
-     */
-    std::string getPassphraseFormat();
+/**
+ * Decrypt a string
+ * @param encryptedData The encrypted data
+ * @param passphrase Pass phrase
+ * @return The Plain text decrypted
+ */
+std::string decrypt(const std::string& encryptedData, const std::string& passphrase);
 
-} //namespace fty
+/**
+ * Check pass phraseFormat
+ * @param phassphrase
+ * @return True if the passphrase is Ok, otherwise false.
+ */
+bool checkPassphraseFormat(const std::string& passphrase);
 
-#endif
+/**
+ * Get passphrase format
+ * @param phassphrase
+ * @return The passphrase format
+ */
+std::string getPassphraseFormat();
+
+} // namespace fty
