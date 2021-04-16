@@ -276,7 +276,6 @@ TEST_CASE("libcert_certificate_x509_test")
     }
 
     printf("OK\n");
-
-
+    
     REQUIRE(true);
 }

@@ -28,7 +28,6 @@
 
 #include "libcert_certificate_X509.h"
 #include "libcert_keys.h"
-// #include <assert.h>
 #include <chrono>
 #include <list>
 #include <openssl/pem.h>
