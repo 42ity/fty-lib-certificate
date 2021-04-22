@@ -43,19 +43,7 @@ Architecture: any
 Section: libdevel
 Depends:
     ${misc:Depends},
-    libssl-dev,
     libfty-lib-certificate1 (= ${binary:Version})
 Description: fty-lib-certificate development tools
  This package contains development files for fty-lib-certificate:
  library of helpers for ssl certificate
-
-Package: fty-lib-certificate-dbg
-Architecture: any
-Section: debug
-Priority: optional
-Depends:
-    libfty-lib-certificate1 (= ${binary:Version}),
-    ${misc:Depends}
-Description: fty-lib-certificate debugging symbols
- This package contains the debugging symbols for fty-lib-certificate:
- library of helpers for ssl certificate.
