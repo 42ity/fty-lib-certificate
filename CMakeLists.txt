@@ -12,7 +12,7 @@ find_package(fty-cmake PATHS ${CMAKE_BINARY_DIR}/fty-cmake)
 
 
 ##############################################################################################################
-etn_target(static ${PROJECT_NAME}-static
+etn_target(shared ${PROJECT_NAME}
     SOURCES
         src/libcert_certificate_config.cc
         src/libcert_certificate_X509.cc 
@@ -23,15 +23,24 @@ etn_target(static ${PROJECT_NAME}-static
         src/libcert_pem_exportable.cc 
         src/libcert_public_key.cc 
     PUBLIC_INCLUDE_DIR
-       include
+        public_include
+    PUBLIC_HEADERS
+        fty-lib-certificate.h
+        fty_lib_certificate_library.h
+        libcert_certificate_X509.h
+        libcert_certificate_config.h
+        libcert_crypto.h
+        libcert_csr_X509.h
+        libcert_keys.h
+        libcert_pem_exportable.h
+        libcert_public_key.h
     USES
         openssl
-    PRIVATE
 )
 ##############################################################################################################
 
 # Create a target for the tests
-etn_test_target(${PROJECT_NAME}-static
+etn_test_target(${PROJECT_NAME}
     SOURCES
         test/main.cpp
         test/libcert_certificate_X509.cpp
@@ -40,7 +49,7 @@ etn_test_target(${PROJECT_NAME}-static
         test/libcert_csr_X509.cpp
         test/libcert_certificate_config.cpp
     USES
-        ${PROJECT_NAME}-static
+        ${PROJECT_NAME}
         openssl
 )
 ##############################################################################################################
