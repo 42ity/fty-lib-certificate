@@ -30,7 +30,7 @@
 // #include "platform.h"
 
 //  External API
-#include "../include/fty-lib-certificate.h"
+#include "fty-lib-certificate.h"
 
 //  Opaque class structures to allow forward references
 #ifndef LIBCERT_OPENSSL_WRAPPER_T_DEFINED
