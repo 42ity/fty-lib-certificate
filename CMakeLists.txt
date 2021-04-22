@@ -6,13 +6,15 @@ project(fty-lib-certificate
     DESCRIPTION "Library of helpers for ssl certificate"
 )
 
+set(PROJECT_NAME_UNDERSCORE fty_lib_certificate)
+
 ##############################################################################################################
 find_package(fty-cmake PATHS ${CMAKE_BINARY_DIR}/fty-cmake)
 ##############################################################################################################
 
 
 ##############################################################################################################
-etn_target(shared ${PROJECT_NAME}
+etn_target(shared ${PROJECT_NAME_UNDERSCORE}
     SOURCES
         src/libcert_certificate_config.cc
         src/libcert_certificate_X509.cc 
@@ -40,7 +42,7 @@ etn_target(shared ${PROJECT_NAME}
 ##############################################################################################################
 
 # Create a target for the tests
-etn_test_target(${PROJECT_NAME}
+etn_test_target(${PROJECT_NAME_UNDERSCORE}
     SOURCES
         test/main.cpp
         test/libcert_certificate_X509.cpp
@@ -49,7 +51,7 @@ etn_test_target(${PROJECT_NAME}
         test/libcert_csr_X509.cpp
         test/libcert_certificate_config.cpp
     USES
-        ${PROJECT_NAME}
+        ${PROJECT_NAME_UNDERSCORE}
         openssl
 )
 ##############################################################################################################
