@@ -39,6 +39,9 @@ etn_target(shared ${PROJECT_NAME_UNDERSCORE}
     USES
         openssl
 )
+
+set_target_properties(${PROJECT_NAME_UNDERSCORE} PROPERTIES SOVERSION ${PROJECT_VERSION_MAJOR}
+
 ##############################################################################################################
 
 # Create a target for the tests

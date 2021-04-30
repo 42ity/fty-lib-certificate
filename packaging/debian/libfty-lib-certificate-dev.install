@@ -1,2 +1,3 @@
 usr/include/*
+usr/lib/*/libfty_lib_certificate.so
 usr/lib/*/pkgconfig/libfty_lib_certificate.pc
