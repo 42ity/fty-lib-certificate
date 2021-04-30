@@ -40,7 +40,7 @@ etn_target(shared ${PROJECT_NAME_UNDERSCORE}
         openssl
 )
 
-set_target_properties(${PROJECT_NAME_UNDERSCORE} PROPERTIES SOVERSION ${PROJECT_VERSION_MAJOR}
+set_target_properties(${PROJECT_NAME_UNDERSCORE} PROPERTIES SOVERSION ${PROJECT_VERSION_MAJOR})
 
 ##############################################################################################################
 
