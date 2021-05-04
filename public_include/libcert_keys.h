@@ -1,5 +1,5 @@
 /*  =========================================================================
-    libcert_public_key - PublicKey class header
+    libcert_keys - Keys class header
 
     Copyright (C) 2019 - 2020 Eaton
 
@@ -19,37 +19,48 @@
     =========================================================================
 */
 
-#ifndef LIBCERT_PUBLIC_KEY_H_INCLUDED
-#define LIBCERT_PUBLIC_KEY_H_INCLUDED
-
-#include <string>
-#include <openssl/evp.h>
-
+#pragma once
 #include "libcert_pem_exportable.h"
+#include "libcert_public_key.h"
+#include <openssl/x509.h>
+#include <string>
 
-namespace fty
+namespace fty {
+// EC curve types
+enum ECKeyType
 {
-    class CertificateX509;
-    class Csr509;
-    class Keys;
+    PRIME256V1 = NID_X9_62_prime256v1
+};
 
-    class PublicKey : public PemExportable
-    {
-    public:
-        ~PublicKey();
+class CertificateX509;
+class CsrX509;
 
-        std::string getPem() const override;
-    private:
-        PublicKey(EVP_PKEY * key);
-        EVP_PKEY * m_evpPkey = NULL;
+// note: A private key containe also the public key matching with it.
+class Keys : public PemExportable
+{
+public:
+    Keys(const std::string& privateKeyPem);
+    Keys(const Keys& key);
+    ~Keys();
+
+    std::string getPem() const override;
+    PublicKey   getPublicKey() const;
+
+    // class methods
+    static Keys generateRSA(int bits);
+    static Keys generateEC(ECKeyType keyType);
+
+private:
+    Keys(EVP_PKEY* evpPkey); // private copy ctor
+    void importPem(const std::string& privateKeyPem);
+
+    EVP_PKEY* m_evpPkey = NULL;
 
     friend class CertificateX509;
     friend class CsrX509;
-    friend class Keys;
-    };
-}
+};
+
+} // namespace fty
 
 //  Self test of this class
-void libcert_public_key_test (bool verbose);
-
-#endif
+void libcert_keys_test(bool verbose);

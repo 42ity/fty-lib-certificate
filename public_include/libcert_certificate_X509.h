@@ -19,50 +19,43 @@
     =========================================================================
 */
 
-#ifndef LIBCERT_CERTIFICATE_X509_H_INCLUDED
-#define LIBCERT_CERTIFICATE_X509_H_INCLUDED
-
-#include <string>
-#include <memory>
-
-#include <openssl/x509.h>
-#include <openssl/x509v3.h>
-
-#include "libcert_pem_exportable.h"
-#include "libcert_public_key.h"
+#pragma once
 
 #include "libcert_certificate_config.h"
+#include "libcert_pem_exportable.h"
+#include "libcert_public_key.h"
+#include <memory>
+#include <openssl/x509.h>
+#include <openssl/x509v3.h>
+#include <string>
 
-namespace fty
+namespace fty {
+using X509Ptr = std::unique_ptr<X509, decltype(&X509_free)>;
+
+class CertificateX509 : public PemExportable
 {
-    using X509Ptr = std::unique_ptr<X509, decltype(&X509_free)>;
+public:
+    explicit CertificateX509(const std::string& certPem);
+    CertificateX509(const CertificateX509& x509);
+    ~CertificateX509();
 
-    class CertificateX509 : public PemExportable
-    {   
-    public:
-        explicit CertificateX509(const std::string & certPem);
-        CertificateX509(const CertificateX509 & x509);
-        ~CertificateX509();
+    std::string getSubject() const;
+    std::string getDetails() const;
+    std::string getPem() const override;
 
-        std::string getSubject() const;
-        std::string getDetails() const;
-        std::string getPem() const override;
+    PublicKey getPublicKey() const;
 
-        PublicKey getPublicKey() const;
+    // class methods
+    static CertificateX509 selfSignSha256(const Keys& key, const CertificateConfig& cfg);
 
-        // class methods
-        static CertificateX509 selfSignSha256(const Keys &key, const CertificateConfig &cfg);
-        
-    private:
-        CertificateX509(X509Ptr cert);
-        void importPem(const std::string & certPem);
+private:
+    CertificateX509(X509Ptr cert);
+    void importPem(const std::string& certPem);
 
-        X509 * m_x509 = NULL;
-    };
+    X509* m_x509 = NULL;
+};
 
 } // namespace fty
 
 //  Self test of this class
-void libcert_certificate_x509_test (bool verbose);
-
-#endif
+void libcert_certificate_x509_test(bool verbose);

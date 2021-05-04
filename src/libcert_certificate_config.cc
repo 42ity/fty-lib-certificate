@@ -28,19 +28,3 @@
 
 #include "fty_lib_certificate_classes.h"
 
-
-//  --------------------------------------------------------------------------
-//  Self test of this class
-
-#define SELFTEST_DIR_RO "src/selftest-ro"
-#define SELFTEST_DIR_RW "src/selftest-rw"
-
-void libcert_certificate_config_test (bool verbose)
-{
-    printf (" * libcert_certificate_config: ");
-
-    //  @selftest
-
-    //  @end
-    printf ("OK\n");
-}

@@ -15,12 +15,12 @@ git clone https://github.com/42ity/fty-lib-certificate.git
 
 cd fty-lib-certificate
 
-./autogen.sh
-./configure
+mkdir build ** cd build
+cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_INSTALL_PREFIX=usr -DBUILD_TESTING=On ..
 
 make
 
-make check  #run self test
+./fty-lib-certificate-static-test   #run self test
 ```
 
 ## Examples
