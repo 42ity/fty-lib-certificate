@@ -1,34 +1,12 @@
 #include <catch2/catch.hpp>
 #include "libcert_csr_X509.h"
 #include "libcert_keys.h"
-
-// color output definition for test function
-#define ANSI_COLOR_RED   "\x1b[31m"
-#define ANSI_COLOR_GREEN "\x1b[32m"
-#define ANSI_COLOR_RESET "\x1b[0m"
-
 #include <iostream>
 #include <vector>
 
 TEST_CASE("libcert_csr_x509_test"){
     using namespace fty;
-
-    std::vector<std::pair<std::string, bool>> testsResults;
-
-    printf(" * libcert_csr_x509: ");
-
-    std::string testNumber;
-    std::string testName;
-
-    // Next test
-    testNumber = "1.1";
-    testName   = "Create CSR-> success case";
-    printf(
-        "\n----------------------------------------------------------------"
-        "-------\n");
     {
-        printf(" *=>  Test #%s %s\n", testNumber.c_str(), testName.c_str());
-
         try {
             // Do the test here. If error throw expections
 
@@ -50,61 +28,27 @@ TEST_CASE("libcert_csr_x509_test"){
             config.setDnsList({"myTest.eaton.com"});
 
             CsrX509 csr = CsrX509::generateCsr(keys, config);
-
-            printf(" *<=  Test #%s > OK\n", testNumber.c_str());
-            testsResults.emplace_back(" Test #" + testNumber + " " + testName, true);
         } catch (const std::exception& e) {
-            printf(" *<=  Test #%s > Failed\n", testNumber.c_str());
-            printf("Error: %s\n", e.what());
-            testsResults.emplace_back(" Test #" + testNumber + " " + testName, false);
+            FAIL(e.what());
         }
     }
-    printf("OK\n");
-
-    // Next test
-    testNumber = "1.2";
-    testName   = "Create CSR-> bad case (empty configuration)";
-    printf(
-        "\n----------------------------------------------------------------"
-        "-------\n");
     {
-        printf(" *=>  Test #%s %s\n", testNumber.c_str(), testName.c_str());
-
         try {
             // Do the test here. If error throw expections
-
             Keys keys = Keys::generateRSA(2048);
 
             CertificateConfig config;
 
             CsrX509 csr = CsrX509::generateCsr(keys, config);
-
-            printf(" *<=  Test #%s > OK\n", testNumber.c_str());
-            testsResults.emplace_back(" Test #" + testNumber + " " + testName, true);
         } catch (const std::runtime_error& e) {
             // expected error
-            printf(" *<=  Test #%s > OK\n", testNumber.c_str());
-            testsResults.emplace_back(" Test #" + testNumber + " " + testName, true);
         } catch (const std::exception& e) {
-            printf(" *<=  Test #%s > Failed\n", testNumber.c_str());
-            printf("Error: %s\n", e.what());
-            testsResults.emplace_back(" Test #" + testNumber + " " + testName, false);
+            FAIL(e.what());
         }
     }
-    printf("OK\n");
-
-    // Next test
-    testNumber = "2.1";
-    testName   = "Check exported key is equal to the one used to sign-> success case";
-    printf(
-        "\n----------------------------------------------------------------"
-        "-------\n");
     {
-        printf(" *=>  Test #%s %s\n", testNumber.c_str(), testName.c_str());
-
         try {
             // Do the test here. If error throw expections
-
             Keys keys = Keys::generateRSA(2048);
 
             CertificateConfig config;
@@ -127,26 +71,11 @@ TEST_CASE("libcert_csr_x509_test"){
             if (keys.getPublicKey() != csr.getPublicKey()) {
                 throw std::runtime_error("PEM keys mismatch");
             }
-
-            printf(" *<=  Test #%s > OK\n", testNumber.c_str());
-            testsResults.emplace_back(" Test #" + testNumber + " " + testName, true);
         } catch (const std::exception& e) {
-            printf(" *<=  Test #%s > Failed\n", testNumber.c_str());
-            printf("Error: %s\n", e.what());
-            testsResults.emplace_back(" Test #" + testNumber + " " + testName, false);
+            FAIL(e.what());
         }
     }
-    printf("OK\n");
-
-    // Next test
-    testNumber = "3.1";
-    testName   = "Check CSR import-> success case";
-    printf(
-        "\n----------------------------------------------------------------"
-        "-------\n");
     {
-        printf(" *=>  Test #%s %s\n", testNumber.c_str(), testName.c_str());
-
         std::string goodPem =
             "-----BEGIN CERTIFICATE REQUEST-----\n"
             "MIIDHjCCAgYCAQIwgYgxCzAJBgNVBAYTAkNaMQ4wDAYDVQQIDAVQcmFoYTEOMAwG\n"
@@ -172,26 +101,11 @@ TEST_CASE("libcert_csr_x509_test"){
             // Do the test here. If error throw expections
 
             CsrX509 csr(goodPem);
-
-            printf(" *<=  Test #%s > OK\n", testNumber.c_str());
-            testsResults.emplace_back(" Test #" + testNumber + " " + testName, true);
         } catch (const std::exception& e) {
-            printf(" *<=  Test #%s > Failed\n", testNumber.c_str());
-            printf("Error: %s\n", e.what());
-            testsResults.emplace_back(" Test #" + testNumber + " " + testName, false);
+            FAIL(e.what());
         }
     }
-    printf("OK\n");
-
-    // Next test
-    testNumber = "3.2";
-    testName   = "Check CSR import-> bad case";
-    printf(
-        "\n----------------------------------------------------------------"
-        "-------\n");
     {
-        printf(" *=>  Test #%s %s\n", testNumber.c_str(), testName.c_str());
-
         std::string badPem =
             "-----BEGIN REQUEST-----\n"
             "MIIDHjCCAgYCAQIwgYgxCzAJBgNVBAYTAkNaMQ4wDAYDVQQIDAVQcmFoYTEOMAwG\n"
@@ -215,54 +129,11 @@ TEST_CASE("libcert_csr_x509_test"){
 
         try {
             // Do the test here. If error throw expections
-
             CsrX509 cert(badPem);
-
-            printf(" *<=  Test #%s > OK\n", testNumber.c_str());
-            testsResults.emplace_back(" Test #" + testNumber + " " + testName, true);
         } catch (const std::runtime_error& e) {
             // expected error
-            printf(" *<=  Test #%s > OK\n", testNumber.c_str());
-            testsResults.emplace_back(" Test #" + testNumber + " " + testName, true);
         } catch (const std::exception& e) {
-            printf(" *<=  Test #%s > Failed\n", testNumber.c_str());
-            printf("Error: %s\n", e.what());
-            testsResults.emplace_back(" Test #" + testNumber + " " + testName, false);
+            FAIL(e.what());
         }
     }
-    printf("OK\n");
-
-
-    // collect results
-
-    printf("\n-----------------------------------------------------------------------\n");
-
-    uint32_t testsPassed = 0;
-    uint32_t testsFailed = 0;
-
-
-    printf("\tSummary tests from libcert_csr_x509\n");
-    for (const auto& result : testsResults) {
-        if (result.second) {
-            printf(ANSI_COLOR_GREEN "\tOK " ANSI_COLOR_RESET "\t%s\n", result.first.c_str());
-            testsPassed++;
-        } else {
-            printf(ANSI_COLOR_RED "\tNOK" ANSI_COLOR_RESET "\t%s\n", result.first.c_str());
-            testsFailed++;
-        }
-    }
-
-    printf("\n-----------------------------------------------------------------------\n");
-
-    if (testsFailed == 0) {
-        printf(ANSI_COLOR_GREEN "\n %i tests passed, everything is ok\n" ANSI_COLOR_RESET "\n", testsPassed);
-    } else {
-        printf(ANSI_COLOR_RED "\n!!!!!!!! %i/%i tests did not pass !!!!!!!! \n" ANSI_COLOR_RESET "\n", testsFailed,
-            (testsPassed + testsFailed));
-
-        REQUIRE(false);
-    }
-
-    printf("OK\n");
-    REQUIRE(true);
 }

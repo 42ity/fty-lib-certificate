@@ -32,6 +32,8 @@
 #include <list>
 #include <openssl/pem.h>
 #include <openssl/ssl.h>
+#include <openssl/x509.h>
+#include <openssl/x509v3.h>
 #include <sstream>
 #include <stdexcept>
 
@@ -53,8 +55,6 @@ static const std::string EXT_DIR_NAME   = "dirName:";
 static const std::string EXT_RID_NAME   = "RID:";
 static const std::string EXT_UTF8_NAME  = "UTF8:";
 static const std::string EXT_OTHER_TYPE = "OtherName:";
-
-static const int SERIAL_RAND_BITS = 64;
 
 CsrX509::CsrX509(const std::string& csrPem)
 {
@@ -189,7 +189,7 @@ void CsrX509::importPem(const std::string& certPem)
 {
     X509_REQ_free(m_x509Req);
 
-    BIO*        bio = BIO_new_mem_buf(static_cast<const void*>(certPem.c_str()), static_cast<int>(certPem.length()));
+    BIO* bio = BIO_new_mem_buf(static_cast<const void*>(certPem.c_str()), static_cast<int>(certPem.length()));
 
     if (bio == NULL) {
         throw std::runtime_error("Impossible to read the csr PEM");

@@ -148,5 +148,3 @@ private:
     std::list<std::string> m_dnsList;
 };
 } // namespace fty
-
-void libcert_certificate_config_test(bool verbose);

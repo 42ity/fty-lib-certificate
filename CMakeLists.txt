@@ -16,19 +16,16 @@ find_package(fty-cmake PATHS ${CMAKE_BINARY_DIR}/fty-cmake)
 ##############################################################################################################
 etn_target(shared ${PROJECT_NAME_UNDERSCORE}
     SOURCES
-        src/libcert_certificate_config.cc
         src/libcert_certificate_X509.cc 
         src/libcert_crypto.cc
         src/libcert_csr_X509.cc 
         src/libcert_keys.cc 
         src/libcert_openssl_wrapper.cc
-        src/libcert_pem_exportable.cc 
         src/libcert_public_key.cc 
     PUBLIC_INCLUDE_DIR
         public_include
     PUBLIC_HEADERS
         fty-lib-certificate.h
-        fty_lib_certificate_library.h
         libcert_certificate_X509.h
         libcert_certificate_config.h
         libcert_crypto.h
@@ -53,8 +50,7 @@ etn_test_target(${PROJECT_NAME_UNDERSCORE}
         test/libcert_keys.cpp
         test/libcert_csr_X509.cpp
         test/libcert_certificate_config.cpp
-    USES
-        ${PROJECT_NAME_UNDERSCORE}
-        openssl
+    SUBDIR
+        test
 )
 ##############################################################################################################

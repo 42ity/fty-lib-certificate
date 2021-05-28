@@ -30,6 +30,7 @@
 #include <openssl/evp.h>
 #include <openssl/pem.h>
 #include <openssl/ssl.h>
+#include <openssl/x509.h>
 #include <sstream>
 #include <stdexcept>
 #include <vector>
@@ -109,7 +110,17 @@ Keys Keys::generateRSA(int bits)
 
 Keys Keys::generateEC(ECKeyType keyType)
 {
-    EC_KEY* ecKey = EC_KEY_new_by_curve_name(keyType);
+    auto realKey = [&]() {
+        switch (keyType) {
+        case PRIME256V1:
+            return NID_X9_62_prime256v1;
+        default:
+            break;
+        }
+        return 0;
+    };
+
+    EC_KEY* ecKey = EC_KEY_new_by_curve_name(realKey());
     EC_KEY_set_asn1_flag(ecKey, OPENSSL_EC_NAMED_CURVE);
 
     if (EC_KEY_generate_key(ecKey) == 0) {
@@ -156,4 +167,3 @@ void Keys::importPem(const std::string& privateKeyPem)
 }
 
 } // namespace fty
-

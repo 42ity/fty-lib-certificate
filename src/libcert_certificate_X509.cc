@@ -32,6 +32,8 @@
 #include <list>
 #include <openssl/pem.h>
 #include <openssl/ssl.h>
+#include <openssl/x509.h>
+#include <openssl/x509v3.h>
 #include <sstream>
 #include <stdexcept>
 
@@ -76,7 +78,7 @@ CertificateX509::~CertificateX509()
 
 std::string CertificateX509::getSubject() const
 {
-    char* str = X509_NAME_oneline(X509_get_subject_name(m_x509), NULL, 0);
+    char* str = X509_NAME_oneline(X509_get_subject_name(m_x509), nullptr, 0);
 
     std::string returnValue(str);
 
@@ -127,7 +129,7 @@ CertificateX509 CertificateX509::selfSignSha256(const Keys& key, const Certifica
     // generate new X509 certificate
     X509Ptr cert(X509_new(), &X509_free);
 
-    if (cert.get() == NULL) {
+    if (cert.get() == nullptr) {
         throw std::runtime_error("Impossible to create certificate");
     }
 
@@ -147,11 +149,11 @@ CertificateX509 CertificateX509::selfSignSha256(const Keys& key, const Certifica
     std::chrono::time_point<std::chrono::system_clock> currentTime = std::chrono::system_clock::now();
     int64_t epochSeconds = std::chrono::time_point_cast<std::chrono::seconds>(currentTime).time_since_epoch().count();
 
-    if ((X509_gmtime_adj(X509_get_notBefore(cert.get()), cfg.getValidFrom() - epochSeconds)) == NULL) {
+    if ((X509_gmtime_adj(X509_get_notBefore(cert.get()), cfg.getValidFrom() - epochSeconds)) == nullptr) {
         throw std::runtime_error("Unable to set valid from field");
     }
 
-    if ((X509_gmtime_adj(X509_get_notAfter(cert.get()), cfg.getValidTo() - epochSeconds)) == NULL) {
+    if ((X509_gmtime_adj(X509_get_notAfter(cert.get()), cfg.getValidTo() - epochSeconds)) == nullptr) {
         throw std::runtime_error("Unable to set valid to field");
     }
 
@@ -195,7 +197,7 @@ CertificateX509::CertificateX509(X509Ptr cert)
 {
     m_x509 = cert.release();
 
-    if (m_x509 == NULL) {
+    if (m_x509 == nullptr) {
         throw std::runtime_error("Impossible to create certificate");
     }
 }
@@ -206,14 +208,14 @@ void CertificateX509::importPem(const std::string& certPem)
 
     BIO* bio = BIO_new_mem_buf(static_cast<const void*>(certPem.c_str()), static_cast<int>(certPem.length()));
 
-    if (bio == NULL) {
+    if (bio == nullptr) {
         throw std::runtime_error("Impossible to read the certificate PEM");
     }
 
-    m_x509 = PEM_read_bio_X509(bio, NULL, NULL, NULL);
+    m_x509 = PEM_read_bio_X509(bio, nullptr, nullptr, nullptr);
     BIO_free(bio);
 
-    if (m_x509 == NULL) {
+    if (m_x509 == nullptr) {
         throw std::runtime_error("Impossible to read the certificate PEM");
     }
 }
@@ -225,7 +227,7 @@ SerialNumberPtr generateSerialNumber()
     // create a bignumber for serial number generation
     BigNumberPtr bn(BN_new(), &BN_free);
 
-    if (bn.get() == NULL) {
+    if (bn.get() == nullptr) {
         throw std::runtime_error("Unable to allocate big pseudo random number");
     }
 
@@ -233,20 +235,20 @@ SerialNumberPtr generateSerialNumber()
         throw std::runtime_error("Unable to generate big pseudo random number");
     }
 
-    SerialNumberPtr serialNumber(BN_to_ASN1_INTEGER(bn.get(), NULL), &ASN1_INTEGER_free);
+    SerialNumberPtr serialNumber(BN_to_ASN1_INTEGER(bn.get(), nullptr), &ASN1_INTEGER_free);
 
-    if (serialNumber.get() == NULL) {
+    if (serialNumber.get() == nullptr) {
         throw std::runtime_error("Unable to convert bn to ASN1 integer");
     }
 
-    return std::move(serialNumber);
+    return serialNumber;
 }
 
 void addExtension(X509Ptr& cert, int nid, const std::string& value)
 {
-    X509_EXTENSION* ex = X509V3_EXT_conf_nid(NULL, NULL, nid, const_cast<char*>(value.c_str()));
+    X509_EXTENSION* ex = X509V3_EXT_conf_nid(nullptr, nullptr, nid, const_cast<char*>(value.c_str()));
 
-    if (ex == NULL) {
+    if (ex == nullptr) {
         X509_EXTENSION_free(ex);
         throw std::runtime_error("Unable to set extension");
     }

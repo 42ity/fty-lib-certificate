@@ -22,14 +22,16 @@
 #pragma once
 #include "libcert_pem_exportable.h"
 #include "libcert_public_key.h"
-#include <openssl/x509.h>
 #include <string>
 
+typedef struct evp_pkey_st EVP_PKEY;
+
 namespace fty {
+
 // EC curve types
 enum ECKeyType
 {
-    PRIME256V1 = NID_X9_62_prime256v1
+    PRIME256V1
 };
 
 class CertificateX509;
@@ -54,13 +56,10 @@ private:
     Keys(EVP_PKEY* evpPkey); // private copy ctor
     void importPem(const std::string& privateKeyPem);
 
-    EVP_PKEY* m_evpPkey = NULL;
+    EVP_PKEY* m_evpPkey = nullptr;
 
     friend class CertificateX509;
     friend class CsrX509;
 };
 
 } // namespace fty
-
-//  Self test of this class
-void libcert_keys_test(bool verbose);

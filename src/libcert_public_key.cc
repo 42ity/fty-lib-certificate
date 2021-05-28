@@ -19,15 +19,8 @@
     =========================================================================
 */
 
-/*
-@header
-    libcert_public_key - Public Key
-@discuss
-@end
-*/
-
-// #include "fty_lib_certificate_classes.h"
 #include "libcert_keys.h"
+#include <openssl/evp.h>
 #include <openssl/pem.h>
 #include <openssl/ssl.h>
 #include <sstream>
@@ -36,7 +29,7 @@
 namespace fty {
 PublicKey::PublicKey(EVP_PKEY* key)
 {
-    if (key == NULL)
+    if (key == nullptr)
         throw std::runtime_error("Impossible to create the public key");
     m_evpPkey = key;
 }
