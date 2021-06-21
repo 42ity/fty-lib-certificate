@@ -25,12 +25,12 @@
 #include "libcert_pem_exportable.h"
 #include "libcert_public_key.h"
 #include <memory>
-#include <openssl/x509.h>
-#include <openssl/x509v3.h>
 #include <string>
 
+typedef struct x509_st X509;
+
 namespace fty {
-using X509Ptr = std::unique_ptr<X509, decltype(&X509_free)>;
+using X509Ptr = std::unique_ptr<X509, void(*)(X509*)>;
 
 class CertificateX509 : public PemExportable
 {
@@ -52,10 +52,7 @@ private:
     CertificateX509(X509Ptr cert);
     void importPem(const std::string& certPem);
 
-    X509* m_x509 = NULL;
+    X509* m_x509 = nullptr;
 };
 
 } // namespace fty
-
-//  Self test of this class
-void libcert_certificate_x509_test(bool verbose);

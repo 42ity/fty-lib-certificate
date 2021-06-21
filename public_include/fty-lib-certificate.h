@@ -19,12 +19,12 @@
     =========================================================================
 */
 
-#ifndef FTY_LIB_CERTIFICATE_H_H_INCLUDED
-#define FTY_LIB_CERTIFICATE_H_H_INCLUDED
+#pragma once
 
-//  Include the project library file
-#include "fty_lib_certificate_library.h"
-
-//  Add your own public definitions here, if you need them
-
-#endif
+#include "libcert_certificate_X509.h"
+#include "libcert_certificate_config.h"
+#include "libcert_crypto.h"
+#include "libcert_csr_X509.h"
+#include "libcert_keys.h"
+#include "libcert_pem_exportable.h"
+#include "libcert_public_key.h"

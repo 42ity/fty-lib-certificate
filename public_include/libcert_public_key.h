@@ -22,8 +22,9 @@
 #pragma once
 
 #include "libcert_pem_exportable.h"
-#include <openssl/evp.h>
 #include <string>
+
+typedef struct evp_pkey_st EVP_PKEY;
 
 namespace fty {
 class CertificateX509;
@@ -39,13 +40,10 @@ public:
 
 private:
     PublicKey(EVP_PKEY* key);
-    EVP_PKEY* m_evpPkey = NULL;
+    EVP_PKEY* m_evpPkey = nullptr;
 
     friend class CertificateX509;
     friend class CsrX509;
     friend class Keys;
 };
 } // namespace fty
-
-//  Self test of this class
-void libcert_public_key_test(bool verbose);
