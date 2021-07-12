@@ -39,18 +39,4 @@ std::string encrypt(const std::string& plainData, const std::string& passphrase)
  */
 std::string decrypt(const std::string& encryptedData, const std::string& passphrase);
 
-/**
- * Check pass phraseFormat
- * @param phassphrase
- * @return True if the passphrase is Ok, otherwise false.
- */
-bool checkPassphraseFormat(const std::string& passphrase);
-
-/**
- * Get passphrase format
- * @param phassphrase
- * @return The passphrase format
- */
-std::string getPassphraseFormat();
-
 } // namespace fty

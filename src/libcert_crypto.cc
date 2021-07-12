@@ -28,9 +28,6 @@
 
 #include "libcert_openssl_wrapper.h"
 #include <iostream>
-#include <memory>
-#include <regex>
-#include <sstream>
 
 namespace fty {
 static constexpr const char* PASS_PHRASE_FORMAT_REGEX = ".{8,}";
@@ -76,18 +73,6 @@ std::string decrypt(const std::string& encryptedData, const std::string& passphr
     clean(key);
     // Convert binary to string
     return bytesToStr(plainBinary);
-}
-
-bool checkPassphraseFormat(const std::string& passphrase)
-{
-    std::regex reg(PASS_PHRASE_FORMAT_REGEX);
-
-    return !passphrase.empty() && std::regex_search(passphrase, reg);
-}
-
-std::string getPassphraseFormat()
-{
-    return std::string(PASS_PHRASE_FORMAT_REGEX);
 }
 
 } // namespace fty
