@@ -27,6 +27,7 @@ Build-Depends:
     debhelper (>= 9),
     fty-cmake-dev,
     pkg-config,
+    libfty-common-dev,
     libssl-dev
 
 Package: libfty-lib-certificate1
