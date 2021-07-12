@@ -35,6 +35,7 @@
 
 namespace fty {
 static constexpr const char* PASS_PHRASE_FORMAT_REGEX = ".{8,}";
+static constexpr const char* PASS_PHRASE_MESSAGE      = "Passphrase must have 8 characters";
 
 std::string encrypt(const std::string& plainData, const std::string& passphrase)
 {
@@ -93,7 +94,7 @@ std::string getPassphraseFormat()
 
 std::string getPassphraseFormatMessage()
 {
-    return TRANSLATE_ME("Passphrase must have 8 characters");
+    return TRANSLATE_ME(PASS_PHRASE_MESSAGE);
 }
 
 } // namespace fty
