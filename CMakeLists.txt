@@ -35,6 +35,7 @@ etn_target(shared ${PROJECT_NAME_UNDERSCORE}
         libcert_public_key.h
     USES
         openssl
+        fty_common
 )
 
 set_target_properties(${PROJECT_NAME_UNDERSCORE} PROPERTIES SOVERSION ${PROJECT_VERSION_MAJOR})

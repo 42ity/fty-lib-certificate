@@ -27,6 +27,7 @@
 */
 
 #include "libcert_openssl_wrapper.h"
+#include <fty_common_macros.h>
 #include <iostream>
 #include <memory>
 #include <regex>
@@ -88,6 +89,11 @@ bool checkPassphraseFormat(const std::string& passphrase)
 std::string getPassphraseFormat()
 {
     return std::string(PASS_PHRASE_FORMAT_REGEX);
+}
+
+std::string getPassphraseFormatMessage()
+{
+    return TRANSLATE_ME("Passphrase must have 8 characters");
 }
 
 } // namespace fty

@@ -53,4 +53,10 @@ bool checkPassphraseFormat(const std::string& passphrase);
  */
 std::string getPassphraseFormat();
 
+/**
+ * Get passphrase format message
+ * @return The passphrase format message
+ */
+std::string getPassphraseFormatMessage();
+
 } // namespace fty
