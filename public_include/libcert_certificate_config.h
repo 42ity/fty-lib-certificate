@@ -25,7 +25,6 @@
 #include <list>
 #include <string>
 
-
 namespace fty {
 using TimeStamp = int64_t;
 
@@ -132,9 +131,9 @@ public:
 
 private:
     // V1
-    uint8_t   m_version;
-    TimeStamp m_validFrom;
-    TimeStamp m_validTo;
+    uint8_t   m_version{0};
+    TimeStamp m_validFrom{0};
+    TimeStamp m_validTo{0};
     // subject
     std::string m_country;
     std::string m_state;

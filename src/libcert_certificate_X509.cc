@@ -94,7 +94,7 @@ std::string CertificateX509::getDetails() const
 
     X509_print(bioOut, m_x509);
 
-    BUF_MEM* bioBuffer;
+    BUF_MEM* bioBuffer{nullptr};
     BIO_get_mem_ptr(bioOut, &bioBuffer);
     details = std::string(bioBuffer->data, bioBuffer->length);
 
@@ -110,7 +110,7 @@ std::string CertificateX509::getPem() const
 
     PEM_write_bio_X509(bioOut, m_x509);
 
-    BUF_MEM* bioBuffer;
+    BUF_MEM* bioBuffer{nullptr};
     BIO_get_mem_ptr(bioOut, &bioBuffer);
     pem = std::string(bioBuffer->data, bioBuffer->length);
 
@@ -205,6 +205,7 @@ CertificateX509::CertificateX509(X509Ptr cert)
 void CertificateX509::importPem(const std::string& certPem)
 {
     X509_free(m_x509);
+    m_x509 = nullptr;
 
     BIO* bio = BIO_new_mem_buf(static_cast<const void*>(certPem.c_str()), static_cast<int>(certPem.length()));
 
