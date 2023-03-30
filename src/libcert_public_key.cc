@@ -29,8 +29,9 @@
 namespace fty {
 PublicKey::PublicKey(EVP_PKEY* key)
 {
-    if (key == nullptr)
+    if (key == nullptr) {
         throw std::runtime_error("Impossible to create the public key");
+    }
     m_evpPkey = key;
 }
 
@@ -46,7 +47,7 @@ std::string PublicKey::getPem() const
 
     PEM_write_bio_PUBKEY(bioOut, m_evpPkey);
 
-    BUF_MEM* bioBuffer;
+    BUF_MEM* bioBuffer{nullptr};
     BIO_get_mem_ptr(bioOut, &bioBuffer);
     pem = std::string(bioBuffer->data, bioBuffer->length);
 

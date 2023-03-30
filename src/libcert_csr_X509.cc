@@ -75,6 +75,9 @@ CsrX509::~CsrX509()
 std::string CsrX509::getSubject() const
 {
     char* str = X509_NAME_oneline(X509_REQ_get_subject_name(m_x509Req), NULL, 0);
+    if (!str) {
+        return "";
+    }
 
     std::string returnValue(str);
 
@@ -90,7 +93,7 @@ std::string CsrX509::getDetails() const
 
     X509_REQ_print(bioOut, m_x509Req);
 
-    BUF_MEM* bioBuffer;
+    BUF_MEM* bioBuffer{nullptr};
     BIO_get_mem_ptr(bioOut, &bioBuffer);
     details = std::string(bioBuffer->data, bioBuffer->length);
 
@@ -106,7 +109,7 @@ std::string CsrX509::getPem() const
 
     PEM_write_bio_X509_REQ(bioOut, m_x509Req);
 
-    BUF_MEM* bioBuffer;
+    BUF_MEM* bioBuffer{nullptr};
     BIO_get_mem_ptr(bioOut, &bioBuffer);
     pem = std::string(bioBuffer->data, bioBuffer->length);
 
@@ -188,6 +191,7 @@ CsrX509::CsrX509(X509ReqPtr csr)
 void CsrX509::importPem(const std::string& certPem)
 {
     X509_REQ_free(m_x509Req);
+    m_x509Req = nullptr;
 
     BIO* bio = BIO_new_mem_buf(static_cast<const void*>(certPem.c_str()), static_cast<int>(certPem.length()));
 

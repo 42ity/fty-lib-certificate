@@ -58,7 +58,7 @@ std::string Keys::getPem() const
 
     PEM_write_bio_PrivateKey(bioOut, m_evpPkey, NULL, NULL, 0, 0, NULL);
 
-    BUF_MEM* bioBuffer;
+    BUF_MEM* bioBuffer{nullptr};
     BIO_get_mem_ptr(bioOut, &bioBuffer);
     pem = std::string(bioBuffer->data, bioBuffer->length);
 
