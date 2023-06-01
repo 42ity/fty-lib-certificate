@@ -20,7 +20,7 @@
 Source:         fty-lib-certificate
 Section:        net
 Priority:       optional
-Maintainer:     fty-lib-certificate Developers <eatonipcopensource@eaton.com>
+Maintainer:     fty-lib-certificate Developers <opensource@eaton.com>
 Standards-Version: 4.0.1.0
 Build-Depends:
     cmake (>=3.0),
