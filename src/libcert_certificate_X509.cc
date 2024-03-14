@@ -232,7 +232,7 @@ SerialNumberPtr generateSerialNumber()
         throw std::runtime_error("Unable to allocate big pseudo random number");
     }
 
-    if ((BN_pseudo_rand(bn.get(), SERIAL_RAND_BITS, 0, 0)) != 1) {
+    if ((BN_rand(bn.get(), SERIAL_RAND_BITS, BN_RAND_TOP_ONE, BN_RAND_BOTTOM_ANY)) != 1) {
         throw std::runtime_error("Unable to generate big pseudo random number");
     }
 

@@ -79,30 +79,9 @@ PublicKey Keys::getPublicKey() const
 
 Keys Keys::generateRSA(int bits)
 {
-    // 1. generate rsa key
-    BIGNUM* bne = BN_new();
-
-    if ((BN_set_word(bne, RSA_F4)) != 1) {
-        BN_free(bne);
-        throw std::runtime_error("Unable to create private key: big number generation failed");
-    }
-
-    RSA* rsaKey = RSA_new();
-
-    if ((RSA_generate_key_ex(rsaKey, bits, bne, NULL)) != 1) {
-        BN_free(bne);
-        RSA_free(rsaKey);
-        throw std::runtime_error("Unable to create private key: RSA generation failed");
-    }
-
-    BN_free(bne);
-
-    EVP_PKEY* evpPkey = EVP_PKEY_new();
-
-    if ((EVP_PKEY_assign_RSA(evpPkey, rsaKey) == 0)) {
-        RSA_free(rsaKey);
-        EVP_PKEY_free(evpPkey);
-        throw std::runtime_error("Failed to assign RSA key to private key.");
+    EVP_PKEY* evpPkey = EVP_RSA_gen(bits);
+    if (evpPkey == NULL) {
+        throw std::runtime_error("Unable to create RSA key: RSA generation failed");
     }
 
     return Keys(evpPkey);
@@ -110,30 +89,18 @@ Keys Keys::generateRSA(int bits)
 
 Keys Keys::generateEC(ECKeyType keyType)
 {
-    auto realKey = [&]() {
-        switch (keyType) {
-        case PRIME256V1:
-            return NID_X9_62_prime256v1;
-        default:
-            break;
-        }
-        return 0;
-    };
-
-    EC_KEY* ecKey = EC_KEY_new_by_curve_name(realKey());
-    EC_KEY_set_asn1_flag(ecKey, OPENSSL_EC_NAMED_CURVE);
-
-    if (EC_KEY_generate_key(ecKey) == 0) {
-        EC_KEY_free(ecKey);
-        throw std::runtime_error("Unable to create private key: EC keygen failed");
+    char* keyName{nullptr};
+    if (keyType == PRIME256V1) {
+        // asn1 flag is automatically set for "prime256v1" EC
+        keyName = SN_X9_62_prime256v1;
+    }
+    else {
+        throw std::runtime_error("Unable to create EC key: keyType not handled");
     }
 
-    EVP_PKEY* evpPkey = EVP_PKEY_new();
-
-    if (EVP_PKEY_assign_EC_KEY(evpPkey, ecKey) == 0) {
-        EC_KEY_free(ecKey);
-        EVP_PKEY_free(evpPkey);
-        throw std::runtime_error("Failed to assign EC key to private key.");
+    EVP_PKEY* evpPkey = EVP_EC_gen(keyName);
+    if (evpPkey == NULL) {
+        throw std::runtime_error("Unable to create EC key: EC generation failed");
     }
 
     return Keys(evpPkey);
