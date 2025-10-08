@@ -23,6 +23,7 @@
 
 #include <string>
 #include <vector>
+#include <cstdint>
 
 namespace fty {
 using Byte      = unsigned char;
