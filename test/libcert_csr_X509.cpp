@@ -14,7 +14,7 @@ TEST_CASE("libcert_csr_x509_test"){
 
             CertificateConfig config;
 
-            config.setVersion(3);
+            config.setVersion(1); // *must* CSR V1
             config.setValidFrom(1571840469);
             config.setValidTo(1603462869);
             config.setCountry("CZ");
@@ -53,7 +53,7 @@ TEST_CASE("libcert_csr_x509_test"){
 
             CertificateConfig config;
 
-            config.setVersion(3);
+            config.setVersion(1); // *must* CSR V1
             config.setValidFrom(1571840469);
             config.setValidTo(1603462869);
             config.setCountry("CZ");

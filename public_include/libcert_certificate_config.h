@@ -131,7 +131,7 @@ public:
 
 private:
     // V1
-    uint8_t   m_version{0};
+    uint8_t   m_version{1};
     TimeStamp m_validFrom{0};
     TimeStamp m_validTo{0};
     // subject
